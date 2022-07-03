@@ -6,6 +6,7 @@ import com.example.app.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,6 +35,7 @@ public class QuestionService {
                 .orElseThrow(() -> new QuestionNotFoundException("Question by id " + id + " was not found"));
     }
 
+    @Transactional
     public void deleteQuestion(UUID id) {
         questionRepository.deleteQuestionById(id);
     }

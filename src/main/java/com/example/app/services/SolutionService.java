@@ -8,6 +8,7 @@ import com.example.app.repositories.SolutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,6 +37,7 @@ public class SolutionService {
                 .orElseThrow(() -> new SolutionNotFoundException("Solution by id " + id + " was not found"));
     }
 
+    @Transactional
     public void deleteSolution(UUID id) {
         solutionRepository.deleteSolutionById(id);
     }
