@@ -1,0 +1,13 @@
+<p>Впишите название вопроса</p>
+<mat-form-field>
+    <input matInput type="text" placeholder="Название вопроса" (ngModel)="this.question.questionText">
+</mat-form-field>
+
+<div>
+    <button mat-raised-button color="primary" 
+    (click)="addAnswer()">Добавить ответ</button>
+</div>
+
+<div *ngFor="let answer of answers">
+    <app-create-answer [answer]="answer"></app-create-answer>
+</div>
