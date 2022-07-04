@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 import { Solution } from 'src/app/models/solution.model';
+import { SolutionService } from 'src/app/services/solution.service';
 
 @Component({
   selector: 'app-create-question',
@@ -12,9 +13,9 @@ export class CreateQuestionComponent implements OnInit {
 
   question : Question = new Question();
   answers : Answer[] = []; 
-  solutions: Solution[][] = [];
+  solutions : string[][] = [];
 
-  constructor() { }
+  constructor(private solutionService: SolutionService) { }
 
   ngOnInit(): void {
   }
@@ -23,4 +24,26 @@ export class CreateQuestionComponent implements OnInit {
     this.answers.push(new Answer());
   }
 
+  addQuestion(): void {
+    for (let i = 0; i < this.answers.length; i++){
+      let answer: Answer = this.answers[i];
+
+      this.solutions[i].forEach(solutionText => {
+        answer.question = this.question;
+        
+        let solution: Solution = {
+          "solutionText": solutionText,
+          "answer": answer
+        }
+
+        console.log(solution);
+
+        this.solutionService.addSolution(solution).subscribe();
+      });
+    }
+  }
+
+  addSolution(newSolutions: string[], index: number){
+    this.solutions[index] = newSolutions;
+  }
 }

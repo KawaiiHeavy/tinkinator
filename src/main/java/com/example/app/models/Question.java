@@ -3,6 +3,7 @@ package com.example.app.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Question {
 
     @Id

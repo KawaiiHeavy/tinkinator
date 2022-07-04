@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Answer } from 'src/app/models/answer.model';
@@ -14,10 +14,12 @@ export class CreateAnswerComponent implements OnInit {
 
   @Input()
   answer: Answer;
-  @Input()
-  solutions: Solution[];
+  @Output()
+  newSolutionEvent = new EventEmitter();
 
   availableSolutions: Solution[];
+
+  solutionsControl = new FormControl([]);
 
   constructor(private solutionService: SolutionService) { }
 
@@ -29,14 +31,16 @@ export class CreateAnswerComponent implements OnInit {
     this.solutionService.getAllSolutions()
     .subscribe(solutions => this.availableSolutions = solutions);
   }
-
-  solutionsControl = new FormControl([]);
-  solutionsText: string[] = [];
   
   onSolutionRemoved(solutionText: string) {
     const solutionTexts = this.solutionsControl.value as never[];
     this.removeFirst(solutionTexts, solutionText);
     this.solutionsControl.setValue(solutionTexts); // To trigger change detection
+  }
+
+  addNewSolution(value: string) {
+    console.log(this.solutionsControl.value);
+    this.newSolutionEvent.emit(this.solutionsControl.value);
   }
 
   private removeFirst<T>(array: T[], toRemove: T): void {
