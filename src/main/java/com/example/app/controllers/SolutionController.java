@@ -48,4 +48,9 @@ public class SolutionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/many/{ids}")
+    public ResponseEntity<?> deleteSolutions(@PathVariable("ids") List<UUID> ids){
+        solutionService.deleteSolutions(ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

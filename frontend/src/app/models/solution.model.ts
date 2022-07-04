@@ -1,4 +1,4 @@
 export class Solution {
-    id: string;
+    id?: string;
     solutionText: string;
 }

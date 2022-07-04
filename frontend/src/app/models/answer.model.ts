@@ -1,4 +1,4 @@
 export class Answer {
-    id: string;
+    id?: string;
     answerText: string;
 }

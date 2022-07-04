@@ -1,3 +1,31 @@
-<mat-form-field>
-    <input matInput type="text" placeholder="Текст ответа" (ngModel)="this.answer.answerText">
-</mat-form-field>
+<div class="row justify-content-start">
+
+    <div class="col">
+        <mat-form-field>
+            <input matInput type="text" placeholder="Текст ответа" (ngModel)="this.answer.answerText">
+        </mat-form-field>
+    </div>
+
+    <div class="col">
+        <mat-form-field >
+            <mat-label>Решения:</mat-label>
+            <mat-select [formControl]="solutionsControl" (click)="showAvailableSolutions()" multiple>
+            
+              <mat-select-trigger>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let solution of solutionsControl.value"
+                    [removable]="true" (removed)="onSolutionRemoved(solution)" color="accent" selected>
+                    {{ solution }}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-select-trigger>
+            
+              <mat-option *ngFor="let solution of availableSolutions" [value]="solution.solutionText">
+                {{ solution.solutionText }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+    
+</div>

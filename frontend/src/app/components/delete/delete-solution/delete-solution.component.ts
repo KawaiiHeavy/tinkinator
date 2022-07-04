@@ -1,22 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { Answer } from 'src/app/models/answer.model';
 import { Solution } from 'src/app/models/solution.model';
 import { SolutionService } from 'src/app/services/solution.service';
 
 @Component({
-  selector: 'app-create-answer',
-  templateUrl: './create-answer.component.html',
-  styleUrls: ['./create-answer.component.scss']
+  selector: 'app-delete-solution',
+  templateUrl: './delete-solution.component.html',
+  styleUrls: ['./delete-solution.component.scss']
 })
-export class CreateAnswerComponent implements OnInit {
+export class DeleteSolutionComponent implements OnInit {
 
-  @Input()
-  answer: Answer;
-  @Input()
-  solutions: Solution[];
-
+  solutionIds: any[] = [];
   availableSolutions: Solution[];
 
   constructor(private solutionService: SolutionService) { }
@@ -31,9 +25,11 @@ export class CreateAnswerComponent implements OnInit {
   }
 
   solutionsControl = new FormControl([]);
-  solutionsText: string[] = [];
   
   onSolutionRemoved(solutionText: string) {
+
+    console.log(this.availableSolutions);
+
     const solutionTexts = this.solutionsControl.value as never[];
     this.removeFirst(solutionTexts, solutionText);
     this.solutionsControl.setValue(solutionTexts); // To trigger change detection
@@ -47,4 +43,20 @@ export class CreateAnswerComponent implements OnInit {
     }
   }
 
+  deleteSolutions(): void {
+
+    const solutionTexts = this.solutionsControl.value as string[];
+    this.availableSolutions.forEach(solution => {
+      if (solutionTexts.includes(solution.solutionText)){
+        console.log("!");
+        this.solutionIds.push(solution.id);
+      }
+    })
+
+    this.solutionIds.forEach(solutionId => 
+      this.solutionService.deleteSolution(solutionId).subscribe())
+
+    this.solutionIds = [];
+
+  }
 }

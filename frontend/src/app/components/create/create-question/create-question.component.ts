@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
+import { Solution } from 'src/app/models/solution.model';
 
 @Component({
   selector: 'app-create-question',
@@ -11,6 +12,7 @@ export class CreateQuestionComponent implements OnInit {
 
   question : Question = new Question();
   answers : Answer[] = []; 
+  solutions: Solution[][] = [];
 
   constructor() { }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Solution } from 'src/app/models/solution.model';
+import { SolutionService } from 'src/app/services/solution.service';
 
 @Component({
   selector: 'app-create-solution',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateSolutionComponent implements OnInit {
 
-  constructor() { }
+  solution: Solution = new Solution();
+
+  constructor(private solutionService: SolutionService) { }
 
   ngOnInit(): void {
+  }
+
+  addSolution(){
+    this.solutionService.addSolution(this.solution)
+    .subscribe(s => this.solution = s);
   }
 
 }

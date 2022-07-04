@@ -3,8 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -15,6 +19,7 @@ import { CreateAnswerComponent } from './components/create/create-answer/create-
 import { CreateQuestionComponent } from './components/create/create-question/create-question.component';
 import { CreateSolutionComponent } from './components/create/create-solution/create-solution.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeleteSolutionComponent } from './components/delete/delete-solution/delete-solution.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +30,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     CreateAnswerComponent,
     CreateQuestionComponent,
-    CreateSolutionComponent
+    CreateSolutionComponent,
+    DeleteSolutionComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     FormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatIconModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
