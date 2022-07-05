@@ -1,7 +1,9 @@
 package com.example.app.controllers;
 
+import com.example.app.dto.AnswerDTO;
 import com.example.app.models.Answer;
 import com.example.app.services.AnswerService;
+import com.example.app.services.AnswerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,12 @@ public class AnswerController {
     public ResponseEntity<Answer> getAnswerById(@PathVariable("id") UUID id) {
         Answer answer = answerService.findAnswerById(id);
         return new ResponseEntity<>(answer, HttpStatus.OK);
+    }
+
+    @GetMapping("/findByQuestionId/{questionId}")
+    public ResponseEntity<AnswerDTO> getAnswerByQuestionId(@PathVariable("questionId") UUID questionId) {
+        AnswerDTO answerDto = answerService.findAnswerByQuestionId(questionId);
+        return new ResponseEntity<>(answerDto, HttpStatus.OK);
     }
 
     @PostMapping("/add")

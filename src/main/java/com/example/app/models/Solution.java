@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -39,4 +40,16 @@ public class Solution {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Answer answer;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Solution solution = (Solution) o;
+        return solutionText.equals(solution.solutionText);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(solutionText);
+    }
 }

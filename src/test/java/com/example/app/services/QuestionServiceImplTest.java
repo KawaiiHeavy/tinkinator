@@ -12,17 +12,17 @@ import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class QuestionServiceTest {
+public class QuestionServiceImplTest {
 
     @Autowired
-    private QuestionService questionService;
+    private QuestionServiceImpl questionServiceImpl;
 
     @Test
     public void testAddOneQuestion() {
         Question question = new Question();
         question.setQuestionText("question1");
 
-        Assert.assertEquals(question, questionService.addQuestion(question));
+        Assert.assertEquals(question, questionServiceImpl.addQuestion(question));
     }
 
     @Test
@@ -30,11 +30,11 @@ public class QuestionServiceTest {
         Question question = new Question();
         question.setQuestionText("question2");
 
-        questionService.addQuestion(question);
-        int size = questionService.findAllQuestions().size();
+        questionServiceImpl.addQuestion(question);
+        int size = questionServiceImpl.findAllQuestions().size();
 
-        questionService.deleteQuestion(question.getId());
-        Assert.assertEquals(size - 1, questionService.findAllQuestions().size());
+        questionServiceImpl.deleteQuestion(question.getId());
+        Assert.assertEquals(size - 1, questionServiceImpl.findAllQuestions().size());
     }
 
     @Test
@@ -42,12 +42,12 @@ public class QuestionServiceTest {
         Question question = new Question();
         question.setQuestionText("question3");
 
-        question = questionService.addQuestion(question);
-        int size = questionService.findAllQuestions().size();
+        question = questionServiceImpl.addQuestion(question);
+        int size = questionServiceImpl.findAllQuestions().size();
         UUID prevQuestionId = question.getId();
 
-        question = questionService.updateQuestion(question);
-        Assert.assertEquals(size, questionService.findAllQuestions().size());
+        question = questionServiceImpl.updateQuestion(question);
+        Assert.assertEquals(size, questionServiceImpl.findAllQuestions().size());
         Assert.assertEquals(prevQuestionId, question.getId());
     }
 
@@ -57,14 +57,14 @@ public class QuestionServiceTest {
         Question question = new Question();
         question.setQuestionText("question4");
 
-        question = questionService.addQuestion(question);
-        int size = questionService.findAllQuestions().size();
+        question = questionServiceImpl.addQuestion(question);
+        int size = questionServiceImpl.findAllQuestions().size();
         UUID prevQuestionId = question.getId();
 
         question.setQuestionText("question5");
-        question = questionService.updateQuestion(question);
+        question = questionServiceImpl.updateQuestion(question);
 
-        Assert.assertEquals(size, questionService.findAllQuestions().size());
+        Assert.assertEquals(size, questionServiceImpl.findAllQuestions().size());
         Assert.assertEquals(prevQuestionId, question.getId());
     }
 

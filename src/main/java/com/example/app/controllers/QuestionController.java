@@ -2,7 +2,6 @@ package com.example.app.controllers;
 
 import com.example.app.models.Question;
 import com.example.app.services.QuestionService;
-import com.example.app.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +26,12 @@ public class QuestionController {
     @GetMapping("/find/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable("id") UUID id) {
         Question question = questionService.findQuestionById(id);
+        return new ResponseEntity<>(question, HttpStatus.OK);
+    }
+
+    @GetMapping("/findRandom")
+    public ResponseEntity<Question> getRandomQuestion(){
+        Question question = questionService.findRandomQuestion();
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 

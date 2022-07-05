@@ -10,6 +10,7 @@ import { SolutionService } from 'src/app/services/solution.service';
 export class CreateSolutionComponent implements OnInit {
 
   solution: Solution = new Solution();
+  isFailed: boolean = false;
 
   constructor(private solutionService: SolutionService) { }
 
@@ -18,7 +19,16 @@ export class CreateSolutionComponent implements OnInit {
 
   addSolution(){
     this.solutionService.addSolution(this.solution)
-    .subscribe(s => this.solution = s);
+    .subscribe({ 
+      next: (s) => 
+      { 
+        this.solution = s 
+        this.isFailed = false;
+      },
+      error: (e) => {
+        this.isFailed = true;
+      }
+    });
   }
 
 }

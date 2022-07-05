@@ -1,7 +1,6 @@
 package com.example.app.repositories;
 
 import com.example.app.models.Answer;
-import com.example.app.models.Solution;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,7 @@ import java.util.UUID;
 public interface AnswerRepository extends JpaRepository<Answer, UUID> {
 
     void deleteAnswerById(UUID id);
-
     Optional<Answer> findAnswerById(UUID id);
+    Optional<Answer> findAnswerByQuestionId(UUID id);
 
 }
