@@ -20,6 +20,7 @@ import { CreateQuestionComponent } from './components/create/create-question/cre
 import { CreateSolutionComponent } from './components/create/create-solution/create-solution.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteSolutionComponent } from './components/delete/delete-solution/delete-solution.component';
+import { DeleteQuestionComponent } from './components/delete/delete-question/delete-question.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DeleteSolutionComponent } from './components/delete/delete-solution/del
     CreateAnswerComponent,
     CreateQuestionComponent,
     CreateSolutionComponent,
-    DeleteSolutionComponent
+    DeleteSolutionComponent,
+    DeleteQuestionComponent
   ],
   imports: [
     BrowserModule,
