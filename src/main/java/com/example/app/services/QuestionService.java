@@ -18,7 +18,6 @@ public class QuestionService {
     private QuestionRepository questionRepository;
 
     public Question addQuestion(Question question) {
-        question.setId(UUID.randomUUID());
         return questionRepository.save(question);
     }
 

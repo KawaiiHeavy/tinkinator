@@ -20,7 +20,6 @@ public class SolutionService {
     private SolutionRepository solutionRepository;
 
     public Solution addSolution(Solution solution) {
-        solution.setId(UUID.randomUUID());
         return solutionRepository.save(solution);
     }
 

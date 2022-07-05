@@ -20,7 +20,6 @@ public class AnswerService {
     private AnswerRepository answerRepository;
 
     public Answer addAnswer(Answer answer) {
-        answer.setId(UUID.randomUUID());
         return answerRepository.save(answer);
     }
 
