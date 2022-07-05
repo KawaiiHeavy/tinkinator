@@ -32,6 +32,7 @@ public class SolutionController {
 
     @PostMapping("/add")
     public ResponseEntity<Solution> addSolution(@RequestBody Solution solution) {
+        System.out.println(solution);
         Solution newSolution = solutionService.addSolution(solution);
         return new ResponseEntity<>(newSolution, HttpStatus.CREATED);
     }
@@ -48,4 +49,9 @@ public class SolutionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/many/{ids}")
+    public ResponseEntity<?> deleteSolutions(@PathVariable("ids") List<UUID> ids){
+        solutionService.deleteSolutions(ids);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

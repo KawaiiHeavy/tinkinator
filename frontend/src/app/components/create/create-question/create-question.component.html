@@ -1,0 +1,20 @@
+<div class="container">
+    <p>Впишите название вопроса</p>
+    <mat-form-field color="accent">
+        <input matInput type="text" placeholder="Название вопроса" [(ngModel)]="this.question.questionText">
+    </mat-form-field>
+
+    <div class="button">
+        <button mat-raised-button color="accent"
+        (click)="addAnswer()">Добавить ответ</button>
+    </div>
+
+    <div *ngFor="let answer of answers; let i = index">
+        <app-create-answer [answer]="answer" (newSolutionEvent)="addSolution($event, i)"></app-create-answer>
+    </div>            
+
+    <div *ngIf="this.answers.length > 0">
+        <button mat-raised-button color="accent"
+        (click)="addQuestion()">Отправить вопрос</button>
+    </div>
+</div>

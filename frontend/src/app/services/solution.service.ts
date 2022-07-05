@@ -13,7 +13,7 @@ export class SolutionService {
 
     constructor(private http: HttpClient){}
 
-    public getSolution(): Observable<Solution[]> {
+    public getAllSolutions(): Observable<Solution[]> {
         return this.http.get<Solution[]>(`${this.apiServerUrl}/solution/all`);
     }
 
@@ -25,8 +25,16 @@ export class SolutionService {
         return this.http.put<Solution>(`${this.apiServerUrl}/solution/update`, solution)
     }
 
-    public deleteSolution(solutionId: number): Observable<void> {
+    public deleteSolution(solutionId: string): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/solution/delete/${solutionId}`);
+    }
+
+    public getSolutionById(solutionId: string): Observable<Solution> {
+        return this.http.get<Solution>(`${this.apiServerUrl}/solution/find/${solutionId}`);
+    }
+
+    public deleteSolutions(solutionIds: string[]): Observable<void> {
+        return this.http.delete<void>(`${this.apiServerUrl}/solution/delete/many/${solutionIds}`);
     }
 
 }

@@ -3,11 +3,13 @@ package com.example.app.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import lombok.ToString;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
@@ -15,6 +17,7 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class Answer {
 
     @Id
@@ -31,8 +34,9 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @ManyToOne
-    @JoinColumn(name = "question_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "question_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Question question;
 
 }

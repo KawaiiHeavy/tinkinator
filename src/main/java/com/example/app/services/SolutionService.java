@@ -41,4 +41,9 @@ public class SolutionService {
     public void deleteSolution(UUID id) {
         solutionRepository.deleteSolutionById(id);
     }
+
+    @Transactional
+    public void deleteSolutions(List<UUID> ids){
+        solutionRepository.deleteAllById(ids);
+    }
 }

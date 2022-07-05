@@ -13,7 +13,7 @@ export class AnswerService {
 
     constructor(private http: HttpClient){}
 
-    public getAnswers(): Observable<Answer[]> {
+    public getAllAnswers(): Observable<Answer[]> {
         return this.http.get<Answer[]>(`${this.apiServerUrl}/answer/all`);
     }
 
@@ -27,6 +27,10 @@ export class AnswerService {
 
     public deleteAnswer(answerId: number): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/answer/delete/${answerId}`)
+    }
+
+    public getAnswerById(answerId: string): Observable<Answer> {
+        return this.http.get<Answer>(`${this.apiServerUrl}/answer/find/${answerId}`);
     }
 
 }

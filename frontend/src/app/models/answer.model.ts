@@ -1,4 +1,7 @@
+import { Question } from "./question.model";
+
 export class Answer {
-    id: string;
+    id?: string;
     answerText: string;
+    question: Question;
 }
