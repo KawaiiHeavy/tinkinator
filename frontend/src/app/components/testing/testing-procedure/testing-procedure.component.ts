@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
+import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from 'src/app/services/question.service';
 
 @Component({
@@ -14,11 +16,13 @@ export class TestingProcedureComponent implements OnInit {
 
   show: boolean = false;
   currentQuestion: Question;
+  solutionText: string = "";
 
-  constructor(private questionService: QuestionService) { }
+  constructor(private answerService: AnswerService, 
+    private questionService: QuestionService) { }
 
   ngOnInit(): void {
-    this.nextQuestion();
+    this.questionService.getAllQuestions().subscribe(questions => this.currentQuestion = questions[0]);
   }
 
   startProcedure() : void {
@@ -26,8 +30,24 @@ export class TestingProcedureComponent implements OnInit {
 
   }
 
-  nextQuestion(): void {
-    this.questionService.getRandomQuestion().subscribe(question => this.currentQuestion = question);
+  nextQuestion(answer: Answer): void {
+    this.answerService.getQuestionByAnswerId(answer.id).subscribe({ 
+      next: (question) => 
+      { 
+        this.currentQuestion = question;
+      },
+      error: (e) => {
+        this.answerService.getSolutionByAnswerId(answer.id).subscribe({
+          next: (solution) => 
+          { 
+            this.solutionText = solution.solutionText;
+          },
+          error: (e) => {
+            this.solutionText = "Решения данной проблемы еще нет в базе данных";
+          }
+        });
+      }
+    });
   }
 
 }

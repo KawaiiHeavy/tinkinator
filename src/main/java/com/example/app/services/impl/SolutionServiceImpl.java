@@ -1,9 +1,9 @@
-package com.example.app.services;
+package com.example.app.services.impl;
 
-import com.example.app.dto.SolutionDTO;
 import com.example.app.exceptions.SolutionNotFoundException;
 import com.example.app.models.Solution;
 import com.example.app.repositories.SolutionRepository;
+import com.example.app.services.SolutionService;
 import com.example.app.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class SolutionServiceImpl implements SolutionService {
@@ -24,19 +22,11 @@ public class SolutionServiceImpl implements SolutionService {
     private Mapper mapper;
 
     public Solution addSolution(Solution solution) {
-        if (solution.getId() == null){
-            System.out.println("????");
-            solution.setId(UUID.randomUUID());
-        }
         return solutionRepository.save(solution);
     }
 
-    public List<SolutionDTO> findAllSolutions() {
-        List<SolutionDTO> solutionDTOList = new LinkedList<>();
-        solutionRepository.findAll().stream().distinct().forEach(
-                solution -> solutionDTOList.add(mapper.mapToSolutionDTO(solution))
-        );
-        return solutionDTOList;
+    public List<Solution> findAllSolutions() {
+        return solutionRepository.findAll();
     }
 
     public Solution updateSolution(Solution solution) {

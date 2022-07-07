@@ -1,9 +1,9 @@
 package com.example.app.controllers;
 
-import com.example.app.dto.AnswerDTO;
+import com.example.app.dto.QuestionDTO;
 import com.example.app.models.Answer;
+import com.example.app.models.Solution;
 import com.example.app.services.AnswerService;
-import com.example.app.services.AnswerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +47,18 @@ public class AnswerController {
     public ResponseEntity<?> deleteAnswer(@PathVariable("id") UUID id) {
         answerService.deleteAnswer(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/findQuestionByAnswerId/{id}")
+    public ResponseEntity<?> getQuestionByAnswerId(@PathVariable("id") UUID id){
+        QuestionDTO question = answerService.findQuestionByAnswerId(id);
+        return new ResponseEntity<>(question, HttpStatus.OK);
+    }
+
+    @GetMapping("/findSolutionByAnswerId/{id}")
+    public ResponseEntity<?> getSolutionByAnswerId(@PathVariable("id") UUID id){
+        Solution solution = answerService.findSolutionByAnswerId(id);
+        return new ResponseEntity<>(solution, HttpStatus.OK);
     }
 
 }

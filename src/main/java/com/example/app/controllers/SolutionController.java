@@ -1,9 +1,7 @@
 package com.example.app.controllers;
 
-import com.example.app.dto.SolutionDTO;
 import com.example.app.models.Solution;
 import com.example.app.services.SolutionService;
-import com.example.app.services.SolutionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +18,8 @@ public class SolutionController {
     private SolutionService solutionService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<SolutionDTO>> getAllSolutions() {
-        List<SolutionDTO> solutions = solutionService.findAllSolutions();
+    public ResponseEntity<List<Solution>> getAllSolutions() {
+        List<Solution> solutions = solutionService.findAllSolutions();
         return new ResponseEntity<>(solutions, HttpStatus.OK);
     }
 

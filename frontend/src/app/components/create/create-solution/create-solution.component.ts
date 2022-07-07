@@ -22,7 +22,7 @@ export class CreateSolutionComponent implements OnInit {
     .subscribe({ 
       next: (s) => 
       { 
-        this.solution = s 
+        this.solution = new Solution();
         this.isFailed = false;
       },
       error: (e) => {

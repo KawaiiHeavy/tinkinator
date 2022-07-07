@@ -21,6 +21,11 @@ import java.util.UUID;
 public class Answer {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     @Column(name = "id", updatable = false, nullable = false)
     @ColumnDefault("random_uuid()")
     @Type(type = "uuid-char")
@@ -28,5 +33,11 @@ public class Answer {
 
     @Column(name = "answer_text", nullable = false)
     private String answerText;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Question question;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Solution solution;
 
 }

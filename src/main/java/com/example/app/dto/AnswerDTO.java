@@ -5,10 +5,7 @@ import lombok.*;
 import java.util.UUID;
 
 @Data
-@Setter
-@Getter
 @NoArgsConstructor
-@ToString
 public class AnswerDTO {
 
     private UUID id;

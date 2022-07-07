@@ -13,28 +13,21 @@ import { SolutionService } from 'src/app/services/solution.service';
 export class CreateQuestionComponent implements OnInit {
 
   question : Question = new Question();
-  answers : Answer[] = []; 
-  solutions : string[][] = [];
 
   constructor(private questionService: QuestionService,
     private solutionService: SolutionService) { }
 
   ngOnInit(): void {
+    this.question.answers = [];
   }
 
   addAnswer() : void {
-    this.answers.push(new Answer());
+    this.question.answers.push(new Answer());
   }
 
   addQuestion(): void {
-    this.question.answers = this.answers;
+    console.log(this.question);
     this.questionService.addQuestion(this.question).subscribe();
 
-    let flatSolutions = this.solutions.flat(2);
-    console.log(flatSolutions);
-  }
-
-  addSolution(newSolutions: string[], index: number){
-    this.solutions[index] = newSolutions;
   }
 }

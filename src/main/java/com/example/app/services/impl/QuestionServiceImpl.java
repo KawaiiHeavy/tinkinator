@@ -1,8 +1,12 @@
-package com.example.app.services;
+package com.example.app.services.impl;
 
+import com.example.app.dto.QuestionDTO;
 import com.example.app.exceptions.QuestionNotFoundException;
 import com.example.app.models.Question;
 import com.example.app.repositories.QuestionRepository;
+import com.example.app.services.QuestionService;
+import com.example.app.utils.Mapper;
+import com.example.app.utils.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,16 +20,19 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private Mapper mapper;
 
-    public Question addQuestion(Question question) {
-        if (question.getId() == null) {
-            question.setId(UUID.randomUUID());
-        }
-        return questionRepository.save(question);
+    public QuestionDTO addQuestion(Question question) {
+
+        Question questionFromDB = questionRepository.save(question);
+        return mapper.mapToQuestionDTO(question);
     }
 
-    public List<Question> findAllQuestions() {
-        return questionRepository.findAll();
+    public List<QuestionDTO> findAllQuestions() {
+        List<Question> questions = questionRepository.findAll();
+        return Streams.of(questions).transform(question -> mapper.mapToQuestionDTO((Question) question)).toList();
+
     }
 
     public Question updateQuestion(Question question) {
@@ -35,12 +42,6 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findQuestionById(UUID id) {
         return questionRepository.findQuestionById(id)
                 .orElseThrow(() -> new QuestionNotFoundException("Question by id " + id + " was not found"));
-    }
-
-    public Question findRandomQuestion(){
-        List<Question> questions = questionRepository.findAll();
-        Random random = new Random();
-        return questions.get(random.nextInt(questions.size()));
     }
 
     @Transactional

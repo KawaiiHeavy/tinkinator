@@ -1,6 +1,8 @@
 package com.example.app.services;
 
+import com.example.app.dto.QuestionDTO;
 import com.example.app.models.Question;
+import com.example.app.services.impl.QuestionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +44,7 @@ public class QuestionServiceImplTest {
         Question question = new Question();
         question.setQuestionText("question3");
 
-        question = questionServiceImpl.addQuestion(question);
+        QuestionDTO questionDTO = questionServiceImpl.addQuestion(question);
         int size = questionServiceImpl.findAllQuestions().size();
         UUID prevQuestionId = question.getId();
 
@@ -57,7 +59,7 @@ public class QuestionServiceImplTest {
         Question question = new Question();
         question.setQuestionText("question4");
 
-        question = questionServiceImpl.addQuestion(question);
+        QuestionDTO questionDTO = questionServiceImpl.addQuestion(question);
         int size = questionServiceImpl.findAllQuestions().size();
         UUID prevQuestionId = question.getId();
 
