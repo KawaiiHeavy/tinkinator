@@ -2,6 +2,8 @@ package com.example.app.dto;
 
 import lombok.*;
 
+import java.util.UUID;
+
 @Data
 @Setter
 @Getter
@@ -9,6 +11,7 @@ import lombok.*;
 @ToString
 public class SolutionDTO {
 
+    private UUID id;
     private String solutionText;
 
 }

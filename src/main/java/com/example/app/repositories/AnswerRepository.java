@@ -12,6 +12,5 @@ public interface AnswerRepository extends JpaRepository<Answer, UUID> {
 
     void deleteAnswerById(UUID id);
     Optional<Answer> findAnswerById(UUID id);
-    Optional<Answer> findAnswerByQuestionId(UUID id);
 
 }

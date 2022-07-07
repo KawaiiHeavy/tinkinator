@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -20,11 +21,6 @@ import java.util.UUID;
 public class Question {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     @Column(name = "id", updatable = false, nullable = false)
     @ColumnDefault("random_uuid()")
     @Type(type = "uuid-char")
@@ -32,5 +28,8 @@ public class Question {
 
     @Column(name = "question_text", nullable = false)
     private String questionText;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Answer> answers;
 
 }

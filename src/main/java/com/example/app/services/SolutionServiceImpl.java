@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,10 @@ public class SolutionServiceImpl implements SolutionService {
     private Mapper mapper;
 
     public Solution addSolution(Solution solution) {
-        solution.setId(UUID.randomUUID());
+        if (solution.getId() == null){
+            System.out.println("????");
+            solution.setId(UUID.randomUUID());
+        }
         return solutionRepository.save(solution);
     }
 

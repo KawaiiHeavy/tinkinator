@@ -4,3 +4,5 @@
     src: local('Font-Tinkoff'),
          url('assets/fonts/pt-sans-regular.woff') format('woff')
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

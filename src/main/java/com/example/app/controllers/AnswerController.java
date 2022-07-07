@@ -31,12 +31,6 @@ public class AnswerController {
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
-    @GetMapping("/findByQuestionId/{questionId}")
-    public ResponseEntity<AnswerDTO> getAnswerByQuestionId(@PathVariable("questionId") UUID questionId) {
-        AnswerDTO answerDto = answerService.findAnswerByQuestionId(questionId);
-        return new ResponseEntity<>(answerDto, HttpStatus.OK);
-    }
-
     @PostMapping("/add")
     public ResponseEntity<Answer> addAnswer(@RequestBody Answer answer) {
         Answer newAnswer = answerService.addAnswer(answer);

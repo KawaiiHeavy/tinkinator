@@ -12,6 +12,6 @@ import java.util.UUID;
 public interface SolutionRepository extends JpaRepository<Solution, UUID> {
 
     void deleteSolutionById(UUID id);
-
     Optional<Solution> findSolutionById(UUID id);
+    Optional<Solution> findSolutionBySolutionText(String solutionText);
 }

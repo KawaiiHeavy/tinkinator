@@ -13,5 +13,4 @@ public interface AnswerService {
     Answer updateAnswer(Answer answer);
     Answer findAnswerById(UUID id);
     void deleteAnswer(UUID id);
-    AnswerDTO findAnswerByQuestionId(UUID questionId);
 }

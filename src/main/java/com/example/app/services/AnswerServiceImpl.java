@@ -21,7 +21,9 @@ public class AnswerServiceImpl implements AnswerService {
     private Mapper mapper;
 
     public Answer addAnswer(Answer answer) {
-        answer.setId(UUID.randomUUID());
+        if (answer.getId() == null) {
+            answer.setId(UUID.randomUUID());
+        }
         return answerRepository.save(answer);
     }
 
@@ -36,11 +38,6 @@ public class AnswerServiceImpl implements AnswerService {
     public Answer findAnswerById(UUID id) {
         return answerRepository.findAnswerById(id)
                 .orElseThrow(() -> new AnswerNotFoundException("Answer by id " + id + " was not found"));
-    }
-
-    public AnswerDTO findAnswerByQuestionId(UUID questionId){
-        return mapper.mapToAnswerDTO(answerRepository.findAnswerByQuestionId(questionId)
-                .orElseThrow(() -> new AnswerNotFoundException("Answer with questionId " + questionId + " was not found")));
     }
 
     @Transactional
