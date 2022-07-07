@@ -9,11 +9,11 @@
         (click)="addAnswer()">Добавить ответ</button>
     </div>
 
-    <div *ngFor="let answer of answers; let i = index">
-        <app-create-answer [answer]="answer" (newSolutionEvent)="addSolution($event, i)"></app-create-answer>
+    <div *ngFor="let answer of this.question.answers; let i = index">
+        <app-create-answer [answer]="answer"></app-create-answer>
     </div>            
 
-    <div *ngIf="this.answers.length > 0">
+    <div *ngIf="this.question.answers.length > 0">
         <button mat-raised-button color="accent"
         (click)="addQuestion()">Отправить вопрос</button>
     </div>

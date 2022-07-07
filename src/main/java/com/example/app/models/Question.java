@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -32,5 +33,11 @@ public class Question {
 
     @Column(name = "question_text", nullable = false)
     private String questionText;
+
+    private boolean isRoot;
+
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Answer> answers;
 
 }

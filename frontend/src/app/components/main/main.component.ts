@@ -9,21 +9,10 @@ import { QuestionService } from 'src/app/services/question.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private questionService: QuestionService) { }
-
-  question: Question;
+  constructor() { }
 
   ngOnInit(): void {
     
-  }
-
-  addQuestion(){
-    const question: Question = {
-      questionText: "question"
-    };
-    
-    this.questionService.addQuestion(question).subscribe(
-      question => this.question = question);
   }
 
 }

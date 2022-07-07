@@ -1,7 +1,7 @@
 package com.example.app.controllers;
 
+import com.example.app.dto.QuestionDTO;
 import com.example.app.models.Question;
-import com.example.app.services.QuestionService;
 import com.example.app.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class QuestionController {
     private QuestionService questionService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Question>> getAllQuestions() {
-        List<Question> questions = questionService.findAllQuestions();
+    public ResponseEntity<List<QuestionDTO>> getAllQuestions() {
+        List<QuestionDTO> questions = questionService.findAllQuestions();
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
@@ -31,8 +31,8 @@ public class QuestionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Question> addQuestion(@RequestBody Question question) {
-        Question newQuestion = questionService.addQuestion(question);
+    public ResponseEntity<QuestionDTO> addQuestion(@RequestBody Question question) {
+        QuestionDTO newQuestion = questionService.addQuestion(question);
         return new ResponseEntity<>(newQuestion, HttpStatus.CREATED);
     }
 

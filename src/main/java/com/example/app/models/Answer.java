@@ -34,9 +34,10 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "question_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OneToOne(cascade = CascadeType.ALL)
     private Question question;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Solution solution;
 
 }

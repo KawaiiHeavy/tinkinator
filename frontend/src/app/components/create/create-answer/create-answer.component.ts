@@ -14,16 +14,14 @@ export class CreateAnswerComponent implements OnInit {
 
   @Input()
   answer: Answer;
-  @Output()
-  newSolutionEvent = new EventEmitter();
 
   availableSolutions: Solution[];
-
-  solutionsControl = new FormControl([]);
+  hideDropdown: boolean;
 
   constructor(private solutionService: SolutionService) { }
 
   ngOnInit(): void {
+    this.hideDropdown = false;
     this.showAvailableSolutions();
   }
 
@@ -31,24 +29,9 @@ export class CreateAnswerComponent implements OnInit {
     this.solutionService.getAllSolutions()
     .subscribe(solutions => this.availableSolutions = solutions);
   }
-  
-  onSolutionRemoved(solutionText: string) {
-    const solutionTexts = this.solutionsControl.value as never[];
-    this.removeFirst(solutionTexts, solutionText);
-    this.solutionsControl.setValue(solutionTexts); // To trigger change detection
-  }
 
-  addNewSolution(value: string) {
-    console.log(this.solutionsControl.value);
-    this.newSolutionEvent.emit(this.solutionsControl.value);
-  }
-
-  private removeFirst<T>(array: T[], toRemove: T): void {
-
-    const index = array.indexOf(toRemove);
-    if (index !== -1) {
-      array.splice(index, 1);
-    }
+  onClick(){
+    this.hideDropdown = !this.hideDropdown;
   }
 
 }

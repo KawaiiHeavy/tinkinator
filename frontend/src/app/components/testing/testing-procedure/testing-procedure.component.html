@@ -1,0 +1,17 @@
+<div class="row justify-content-start">
+    <div class="col-2">
+        <p>Заявка: {{ clientRequest }}</p>
+    </div>
+    <div class="col-2">
+        <button mat-raised-button color="accent" (click)="startProcedure()" [disabled]="this.show">Рассмотреть</button>
+    </div>
+</div>
+<div *ngIf="this.show" class="row">
+    <div class="col-2">
+        <p>{{ this.currentQuestion.questionText }}</p>
+    </div>
+    <div class="col-2">
+        <button *ngFor="let answer of this.currentQuestion.answers" mat-raised-button color="accent" (click)="nextQuestion(answer)">{{ answer.answerText }}</button> 
+    </div>
+</div>
+<div>{{ this.solutionText }}</div>

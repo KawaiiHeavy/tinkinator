@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -33,10 +34,5 @@ public class Solution {
 
     @Column(name = "solution_text", nullable = false)
     private String solutionText;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "answer_id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Answer answer;
 
 }

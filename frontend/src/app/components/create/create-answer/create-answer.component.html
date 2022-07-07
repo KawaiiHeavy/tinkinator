@@ -8,18 +8,12 @@
 
     <div class="col">
         <mat-form-field >
-          <mat-label>Решения:</mat-label>
-          <mat-select [formControl]="solutionsControl" (click)="showAvailableSolutions()" multiple #select>
-            <mat-option *ngFor="let solution of availableSolutions" [value]="solution.solutionText" (click)="addNewSolution(select.value)">
+          <mat-label>Решение:</mat-label>
+          <mat-select (click)="showAvailableSolutions()" #select *ngIf="!hideDropdown">
+            <mat-option *ngFor="let solution of availableSolutions" [value]="solution.solutionText">
               {{ solution.solutionText }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-
-        <p>Выбранные решения:</p>
-        <p *ngFor="let val of select.value">
-          <mat-label>{{ val }}</mat-label>
-        </p>
-
     </div>
 </div>
