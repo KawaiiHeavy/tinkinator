@@ -34,10 +34,10 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Question question;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Solution solution;
 
 }

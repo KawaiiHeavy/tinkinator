@@ -1,0 +1,28 @@
+<div class="container">
+    <p>Впишите решение проблемы, чтобы добавить его в базу данных</p>
+    <mat-form-field color="accent">
+        <input matInput type="text" placeholder="Решение проблемы" [(ngModel)]="this.solution.solutionText">
+    </mat-form-field>
+    <div>
+        <button mat-raised-button color="accent"
+        (click)="addSolution()">Добавить решение</button>
+    </div>
+    <div *ngIf="this.isFailed" class="alert alert-danger">
+        Такое решение уже существует
+    </div>
+</div>
+
+<div class="container">
+    <mat-divider></mat-divider>
+    <div class="row" *ngFor="let solution of this.availableSolutions">
+        <p>Решение: {{ solution.solutionText }}</p>
+        <p>ID: {{ solution.id }}</p>
+        <div class="col">
+            <button mat-raised-button color="accent" (click)="deleteSolution(solution)">Удалить</button>
+        </div>
+        <div class="col">
+            <button mat-raised-button color="accent">Подробнее</button>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</div>

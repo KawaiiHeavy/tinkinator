@@ -9,6 +9,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
@@ -16,13 +19,15 @@ import { AdminpageComponent } from './components/pages/adminpage/adminpage.compo
 import { UserpageComponent } from './components/pages/userpage/userpage.component';
 import { HomeComponent } from './components/home/home.component';
 import { CreateAnswerComponent } from './components/create/create-answer/create-answer.component';
-import { CreateQuestionComponent } from './components/create/create-question/create-question.component';
 import { CreateSolutionComponent } from './components/create/create-solution/create-solution.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DeleteSolutionComponent } from './components/delete/delete-solution/delete-solution.component';
-import { DeleteQuestionComponent } from './components/delete/delete-question/delete-question.component';
 import { TestingProcedureComponent } from './components/testing/testing-procedure/testing-procedure.component';
 import { TestingMenuComponent } from './components/testing/testing-menu/testing-menu.component';
+import { QuestionSectionComponent } from './components/question-section/question-section.component';
+import { SolutionSectionComponent } from './components/solution-section/solution-section.component';
+import { DetailInfoQuestionDialog } from './components/question-section/question-section.component';
+
 
 @NgModule({
   declarations: [
@@ -32,12 +37,13 @@ import { TestingMenuComponent } from './components/testing/testing-menu/testing-
     UserpageComponent,
     HomeComponent,
     CreateAnswerComponent,
-    CreateQuestionComponent,
     CreateSolutionComponent,
     DeleteSolutionComponent,
-    DeleteQuestionComponent,
     TestingProcedureComponent,
-    TestingMenuComponent
+    TestingMenuComponent,
+    QuestionSectionComponent,
+    SolutionSectionComponent,
+    DetailInfoQuestionDialog
   ],
   imports: [
     BrowserModule,
@@ -51,7 +57,10 @@ import { TestingMenuComponent } from './components/testing/testing-menu/testing-
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatExpansionModule,
+    MatDividerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

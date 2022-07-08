@@ -24,14 +24,15 @@ public class QuestionServiceImpl implements QuestionService {
     private Mapper mapper;
 
     public QuestionDTO addQuestion(Question question) {
-
+        System.out.println(question);
         Question questionFromDB = questionRepository.save(question);
         return mapper.mapToQuestionDTO(question);
     }
 
     public List<QuestionDTO> findAllQuestions() {
-        List<Question> questions = questionRepository.findAll();
-        return Streams.of(questions).transform(question -> mapper.mapToQuestionDTO((Question) question)).toList();
+        List<QuestionDTO> questions = mapper.mapToQuestionsDTO(questionRepository.findAll());
+        System.out.println(questions);
+        return questions;
 
     }
 

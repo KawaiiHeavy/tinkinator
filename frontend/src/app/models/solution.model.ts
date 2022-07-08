@@ -1,6 +1,6 @@
 import { Answer } from "./answer.model";
 
 export class Solution {
-    id?: string;
+    id: string;
     solutionText: string;
 }

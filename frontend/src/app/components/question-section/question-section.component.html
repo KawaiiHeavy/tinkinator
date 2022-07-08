@@ -1,0 +1,38 @@
+<div class="container">
+    <p>Впишите название вопроса</p>
+    <mat-form-field color="accent">
+        <input matInput type="text" placeholder="Название вопроса" [(ngModel)]="this.currentQuestion.questionText">
+    </mat-form-field>
+
+    <div class="button">
+        <button mat-raised-button color="accent"
+        (click)="addAnswer()">Добавить ответ</button>
+    </div>
+
+    <div *ngFor="let answer of this.currentQuestion.answers; let i = index">
+        <app-create-answer [answer]="answer"></app-create-answer>
+    </div>            
+
+    <div *ngIf="this.currentQuestion.answers.length > 0">
+        <button mat-raised-button color="accent"
+        (click)="addQuestion()">Отправить вопрос</button>
+    </div>
+</div>
+
+<div class="container">
+    <mat-divider></mat-divider>
+    <div class="row" *ngFor="let question of this.availableQuestions">
+        <p>Вопрос: {{ question.questionText }}</p>
+        <p>ID: {{ question.id }}</p>
+        <div class="col">
+            <button mat-raised-button color="accent" (click)="deleteQuestion(question)">Удалить</button>
+        </div>
+        <div class="col">
+            <button mat-raised-button color="accent">Редактировать</button>
+        </div>
+        <div class="col">
+            <button mat-raised-button color="accent" (click)="openDetailInfoDialog(question)">Подробнее</button>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</div>
