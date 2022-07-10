@@ -13,6 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 
+
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { AdminpageComponent } from './components/pages/adminpage/adminpage.component';
@@ -27,6 +28,10 @@ import { TestingMenuComponent } from './components/testing/testing-menu/testing-
 import { QuestionSectionComponent } from './components/question-section/question-section.component';
 import { SolutionSectionComponent } from './components/solution-section/solution-section.component';
 import { DetailInfoQuestionDialog } from './components/question-section/question-section.component';
+import { EditQuestionDialog } from './components/question-section/question-section.component';
+import { AnswerSectionComponent } from './components/answer-section/answer-section.component';
+import { DetailInfoAnswerDialog } from './components/answer-section/answer-section.component';
+import { EditAnswerDialog } from './components/answer-section/answer-section.component';
 
 
 @NgModule({
@@ -43,7 +48,11 @@ import { DetailInfoQuestionDialog } from './components/question-section/question
     TestingMenuComponent,
     QuestionSectionComponent,
     SolutionSectionComponent,
-    DetailInfoQuestionDialog
+    DetailInfoQuestionDialog,
+    AnswerSectionComponent,
+    DetailInfoAnswerDialog,
+    EditAnswerDialog,
+    EditQuestionDialog
   ],
   imports: [
     BrowserModule,

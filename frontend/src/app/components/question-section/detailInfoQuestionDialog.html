@@ -6,8 +6,8 @@
     <ul>
         <li *ngFor="let answer of data.answers">
             <p>{{ answer.answerText }}</p>
-            <p>Решение: {{ answer.solution.solutionText }}</p>
-            <p>ID решения: {{ answer.solution.id }}</p>
+            <p *ngIf="answer.solution != null">Решение: {{ answer.solution.solutionText }}</p>
+            <p *ngIf="answer.solution != null">ID решения: {{ answer.solution.id }}</p>
         </li>
     </ul>
 </div>

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
+import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { SolutionService } from 'src/app/services/solution.service';
 
@@ -34,6 +35,10 @@ export class QuestionSectionComponent implements OnInit {
     this.currentQuestion.answers.push(new Answer());
   }
 
+  deleteAnswer(answerIdx: number): void {
+    this.currentQuestion.answers.splice(answerIdx, 1);
+  }
+
   addQuestion(): void {
     this.questionService.addQuestion(this.currentQuestion).subscribe();
     this.showAvailableQuestions();
@@ -47,12 +52,17 @@ export class QuestionSectionComponent implements OnInit {
   }
 
   openDetailInfoDialog(question: Question): void {
-
-    console.log(question);
-
     this.dialog.open( DetailInfoQuestionDialog, 
       { 
         width: '250px', 
+        data: question
+      });
+  }
+
+  openEditDialog(question: Question): void {
+    this.dialog.open( EditQuestionDialog,
+      {
+        width: '250px',
         data: question
       });
   }
@@ -64,9 +74,35 @@ export class QuestionSectionComponent implements OnInit {
 }
 
 @Component({
-  selector: 'edit-question-dialog',
-  templateUrl: 'detailInfoDialog.html',
+  selector: 'detailInfo-question-dialog',
+  templateUrl: 'detailInfoQuestionDialog.html',
 })
 export class DetailInfoQuestionDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Question) {}
+}
+
+
+@Component({
+  selector: 'edit-question-dialog',
+  templateUrl: 'editQuestionDialog.html',
+})
+export class EditQuestionDialog {
+  constructor(
+    public dialogRef: MatDialogRef<EditQuestionDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Question, 
+    private questionService: QuestionService) {}
+
+  addAnswer(): void {
+    this.data.answers.push(new Answer());
+  }
+
+  deleteAnswer(answerIdx: number): void {
+    this.data.answers.splice(answerIdx, 1);
+  }
+
+  confirm(): void {
+     this.questionService.addQuestion(this.data).subscribe();
+     this.dialogRef.close();
+  }
+
 }

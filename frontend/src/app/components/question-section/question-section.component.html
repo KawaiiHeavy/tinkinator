@@ -10,29 +10,37 @@
     </div>
 
     <div *ngFor="let answer of this.currentQuestion.answers; let i = index">
+        <mat-divider></mat-divider>
         <app-create-answer [answer]="answer"></app-create-answer>
+        <button mat-raised-button color="accent" (click)="deleteAnswer(i)">Удалить</button>
     </div>            
 
     <div *ngIf="this.currentQuestion.answers.length > 0">
-        <button mat-raised-button color="accent"
+        <mat-divider></mat-divider>
+        <button mat-raised-button color="accent" [disabled]="!this.currentQuestion.questionText"
         (click)="addQuestion()">Отправить вопрос</button>
     </div>
 </div>
 
 <div class="container">
-    <mat-divider></mat-divider>
+    <h2>Вопросы</h2>
     <div class="row" *ngFor="let question of this.availableQuestions">
-        <p>Вопрос: {{ question.questionText }}</p>
-        <p>ID: {{ question.id }}</p>
-        <div class="col">
-            <button mat-raised-button color="accent" (click)="deleteQuestion(question)">Удалить</button>
-        </div>
-        <div class="col">
-            <button mat-raised-button color="accent">Редактировать</button>
-        </div>
-        <div class="col">
-            <button mat-raised-button color="accent" (click)="openDetailInfoDialog(question)">Подробнее</button>
-        </div>
         <mat-divider></mat-divider>
+        <div class="col">
+            <p>Вопрос: {{ question.questionText }}</p>
+            <p>ID: {{ question.id }}</p>
+        </div>
+        <div class="col">
+            <button mat-button color="accent" (click)="deleteQuestion(question)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-button color="accent" (click)="openEditDialog(question)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button color="accent" (click)="openDetailInfoDialog(question)">
+                <mat-icon>info</mat-icon>
+            </button>
+        </div>
+        
     </div>
 </div>
