@@ -9,8 +9,8 @@
     <div class="col">
         <mat-form-field >
           <mat-label>Решение:</mat-label>
-          <mat-select (click)="showAvailableSolutions()" #select *ngIf="!hideDropdown">
-            <mat-option *ngFor="let solution of availableSolutions" [value]="solution.solutionText">
+          <mat-select (click)="showAvailableSolutions()" (valueChange)="selectSolution($event)" #select *ngIf="!hideDropdown">
+            <mat-option *ngFor="let solution of availableSolutions" [value]="solution">
               {{ solution.solutionText }}
             </mat-option>
           </mat-select>

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Редактировать ответ</h1>
+<div mat-dialog-content>
+    <div *ngIf="data.question == null">
+        <button mat-raised-button color="accent" (click)="showQuestionAddMenu()">Добавить вопрос</button>
+        <ul>
+            <li *ngFor="let question of this.questions">
+                <p *ngIf="!question.answers.includes(data)">
+                    {{ question.id }}: {{ question.questionText }}
+                </p>
+                <button mat-raised-button color="accent" (click)="addQuestionToAnswer(question)">+</button>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="data.question != null">
+        <p>{{ data.question.id }}: {{ data.question.questionText }}</p>
+        <button mat-raised-button color="accent" (click)="removeQuestionFromAnswer()">Удалить вопрос</button>
+    </div>
+
+    <div *ngIf="data.solution == null">
+        <button mat-raised-button color="accent" (click)="showSolutionAddMenu()">Добавить решение</button>
+        <ul>
+            <li *ngFor="let solution of this.solutions">
+                {{ solution.id }}: {{ solution.solutionText }}
+                <button mat-raised-button color="accent" (click)="addSolutionToAnswer(solution)">+</button>
+            </li>
+        </ul>
+    </div>
+
+    <div *ngIf="data.solution != null">
+        <p>{{ data.solution.id }}: {{ data.solution.solutionText }}</p>
+        <button mat-raised-button color="accent" (click)="removeSolutionFromAnswer()">Удалить решение</button>
+    </div>
+
+    <div>
+        <button mat-raised-button color="accent" (click)="confirm()"
+        style="margin-top: 10px; margin-bottom: 10px;">Сохранить</button>
+    </div>
+
+</div>

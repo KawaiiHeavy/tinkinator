@@ -27,7 +27,7 @@ export class AnswerService {
         return this.http.put<Answer>(`${this.apiServerUrl}/answer/update`, answer)
     }
 
-    public deleteAnswer(answerId: number): Observable<void> {
+    public deleteAnswer(answerId: string): Observable<void> {
         return this.http.delete<void>(`${this.apiServerUrl}/answer/delete/${answerId}`)
     }
 

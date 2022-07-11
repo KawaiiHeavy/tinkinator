@@ -9,8 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Objects;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity

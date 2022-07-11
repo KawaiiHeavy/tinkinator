@@ -36,7 +36,6 @@ public class Question {
 
     private boolean isRoot;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     private Set<Answer> answers;
 

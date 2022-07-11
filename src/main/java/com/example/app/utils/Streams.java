@@ -23,10 +23,6 @@ public class Streams<T> {
      */
     private static List<Object> operationsList;
 
-    public static List getStreamList() {
-        return streamList;
-    }
-
     public static Streams of(List list) {
         streamList = new LinkedList(list);
         operationsList = new LinkedList<>();
@@ -78,10 +74,11 @@ public class Streams<T> {
             if (addObject) map.put(keyFunction.apply((T) transformedObject),
                     valueFunction.apply((T) transformedObject));
         }
+        streamList = null;
         return map;
     }
 
-    public Set<T> toSet(){
+    public Set<?> toSet(){
 
         Set<T> set = new HashSet<>();
 
@@ -106,10 +103,11 @@ public class Streams<T> {
             }
             if (addObject) set.add((T) transformedObject);
         }
+        streamList = null;
         return set;
     }
 
-    public List<T> toList(){
+    public List<?> toList(){
 
         List<T> list = new ArrayList<>();
 
@@ -134,6 +132,7 @@ public class Streams<T> {
             }
             if (addObject) list.add((T) transformedObject);
         }
+        streamList = null;
         return list;
     }
 

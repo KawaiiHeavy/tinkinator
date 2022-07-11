@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Редактировать вопрос</h1>
+<div mat-dialog-content>
+    <div class="button">
+        <button mat-raised-button color="accent" 
+        (click)="addAnswer()">Добавить ответ</button>
+    </div>
+
+    <div *ngFor="let answer of this.data.answers; let i = index">
+        <mat-divider></mat-divider>
+        <app-create-answer [answer]="answer"></app-create-answer>
+        <button mat-raised-button color="accent" (click)="deleteAnswer(i)">Удалить</button>
+    </div>
+    
+    <div *ngIf="this.data.answers.length > 0">
+        <mat-divider></mat-divider>
+        <button mat-raised-button color="accent" [disabled]="!this.data.questionText"
+        (click)="confirm()">Отправить вопрос</button>
+    </div>
+
+</div>

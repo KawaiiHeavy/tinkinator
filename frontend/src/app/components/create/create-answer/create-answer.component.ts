@@ -34,4 +34,14 @@ export class CreateAnswerComponent implements OnInit {
     this.hideDropdown = !this.hideDropdown;
   }
 
+  deleteAnswer(): void {
+    this.answer = null;
+  }
+
+  selectSolution(event: Event): void {
+    console.log(event);
+    this.answer.solution = event as unknown as Solution;
+    this.answer.solution.id = null;
+  }
+
 }

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Детальная информация</h1>
+<div mat-dialog-content>
+    <p>Вопрос: {{ data.questionText }}</p>
+    <p>ID вопроса: {{ data.id }}</p>
+    <p>Ответы:</p>
+    <ul>
+        <li *ngFor="let answer of data.answers">
+            <p>{{ answer.answerText }}</p>
+            <p *ngIf="answer.solution != null">Решение: {{ answer.solution.solutionText }}</p>
+            <p *ngIf="answer.solution != null">ID решения: {{ answer.solution.id }}</p>
+        </li>
+    </ul>
+</div>

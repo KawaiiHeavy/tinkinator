@@ -1,0 +1,46 @@
+<div class="container">
+    <p>Впишите название вопроса</p>
+    <mat-form-field color="accent">
+        <input matInput type="text" placeholder="Название вопроса" [(ngModel)]="this.currentQuestion.questionText">
+    </mat-form-field>
+
+    <div class="button">
+        <button mat-raised-button color="accent"
+        (click)="addAnswer()">Добавить ответ</button>
+    </div>
+
+    <div *ngFor="let answer of this.currentQuestion.answers; let i = index">
+        <mat-divider></mat-divider>
+        <app-create-answer [answer]="answer"></app-create-answer>
+        <button mat-raised-button color="accent" (click)="deleteAnswer(i)">Удалить</button>
+    </div>            
+
+    <div *ngIf="this.currentQuestion.answers.length > 0">
+        <mat-divider></mat-divider>
+        <button mat-raised-button color="accent" [disabled]="!this.currentQuestion.questionText"
+        (click)="addQuestion()">Отправить вопрос</button>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Вопросы</h2>
+    <div class="row" *ngFor="let question of this.availableQuestions">
+        <mat-divider></mat-divider>
+        <div class="col">
+            <p>Вопрос: {{ question.questionText }}</p>
+            <p>ID: {{ question.id }}</p>
+        </div>
+        <div class="col">
+            <button mat-button color="accent" (click)="deleteQuestion(question)">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-button color="accent" (click)="openEditDialog(question)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-button color="accent" (click)="openDetailInfoDialog(question)">
+                <mat-icon>info</mat-icon>
+            </button>
+        </div>
+        
+    </div>
+</div>
