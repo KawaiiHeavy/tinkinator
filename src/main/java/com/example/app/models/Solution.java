@@ -32,5 +32,4 @@ public class Solution {
 
     @Column(name = "solution_text", nullable = false)
     private String solutionText;
-
 }

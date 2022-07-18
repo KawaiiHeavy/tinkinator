@@ -1,5 +1,6 @@
 package com.example.app.services.impl;
 
+import com.example.app.dto.SolutionDTO;
 import com.example.app.exceptions.SolutionNotFoundException;
 import com.example.app.models.Answer;
 import com.example.app.models.Solution;
@@ -26,21 +27,24 @@ public class SolutionServiceImpl implements SolutionService {
     @Autowired
     private Mapper mapper;
 
-    public Solution addSolution(Solution solution) {
-        return solutionRepository.save(solution);
+    public SolutionDTO addSolution(SolutionDTO solution) {
+        return mapper.mapToSolutionDTO(solutionRepository.save(mapper.mapToSolution(solution)));
     }
 
-    public List<Solution> findAllSolutions() {
-        return solutionRepository.findAll();
+    public List<SolutionDTO> findAllSolutions() {
+        List<SolutionDTO> solutions = new LinkedList<>();
+        solutionRepository.findAll().forEach(solution
+                -> solutions.add(mapper.mapToSolutionDTO(solution)));
+        return solutions;
     }
 
-    public Solution updateSolution(Solution solution) {
-        return solutionRepository.save(solution);
+    public SolutionDTO updateSolution(SolutionDTO solution) {
+        return mapper.mapToSolutionDTO(solutionRepository.save(mapper.mapToSolution(solution)));
     }
 
-    public Solution findSolutionById(UUID id) {
-        return solutionRepository.findSolutionById(id)
-                .orElseThrow(() -> new SolutionNotFoundException("Solution by id " + id + " was not found"));
+    public SolutionDTO findSolutionById(UUID id) {
+        return mapper.mapToSolutionDTO(solutionRepository.findSolutionById(id)
+                .orElseThrow(() -> new SolutionNotFoundException("Solution by id " + id + " was not found")));
     }
 
     @Transactional
@@ -49,5 +53,4 @@ public class SolutionServiceImpl implements SolutionService {
         answers.forEach(answer -> answer.setSolution(null));
         solutionRepository.deleteSolutionById(id);
     }
-
 }

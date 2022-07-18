@@ -25,20 +25,20 @@ public class QuestionController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Question> getQuestionById(@PathVariable("id") UUID id) {
-        Question question = questionService.findQuestionById(id);
+    public ResponseEntity<QuestionDTO> getQuestionById(@PathVariable("id") UUID id) {
+        QuestionDTO question = questionService.findQuestionById(id);
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<QuestionDTO> addQuestion(@RequestBody Question question) {
+    public ResponseEntity<QuestionDTO> addQuestion(@RequestBody QuestionDTO question) {
         QuestionDTO newQuestion = questionService.addQuestion(question);
         return new ResponseEntity<>(newQuestion, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Question> updateQuestion(@RequestBody Question question) {
-        Question updateQuestion = questionService.updateQuestion(question);
+    public ResponseEntity<QuestionDTO> updateQuestion(@RequestBody QuestionDTO question) {
+        QuestionDTO updateQuestion = questionService.updateQuestion(question);
         return new ResponseEntity<>(updateQuestion, HttpStatus.OK);
     }
 

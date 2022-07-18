@@ -36,7 +36,7 @@ public class Question {
 
     private boolean isRoot;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Answer> answers;
 
 }

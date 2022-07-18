@@ -8,10 +8,10 @@ import java.util.UUID;
 
 public interface QuestionService {
 
-    QuestionDTO addQuestion(Question question);
+    QuestionDTO addQuestion(QuestionDTO question);
     List<QuestionDTO> findAllQuestions();
-    Question updateQuestion(Question question);
-    Question findQuestionById(UUID id);
+    QuestionDTO updateQuestion(QuestionDTO question);
+    QuestionDTO findQuestionById(UUID id);
     void deleteQuestion(UUID id);
 
 }
