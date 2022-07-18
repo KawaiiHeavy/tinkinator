@@ -1,5 +1,6 @@
 package com.example.app.controllers;
 
+import com.example.app.dto.SolutionDTO;
 import com.example.app.models.Solution;
 import com.example.app.services.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +19,26 @@ public class SolutionController {
     private SolutionService solutionService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Solution>> getAllSolutions() {
-        List<Solution> solutions = solutionService.findAllSolutions();
+    public ResponseEntity<List<SolutionDTO>> getAllSolutions() {
+        List<SolutionDTO> solutions = solutionService.findAllSolutions();
         return new ResponseEntity<>(solutions, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Solution> getSolutionById(@PathVariable("id") UUID id) {
-        Solution solution = solutionService.findSolutionById(id);
+    public ResponseEntity<SolutionDTO> getSolutionById(@PathVariable("id") UUID id) {
+        SolutionDTO solution = solutionService.findSolutionById(id);
         return new ResponseEntity<>(solution, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Solution> addSolution(@RequestBody Solution solution) {
-        Solution newSolution = solutionService.addSolution(solution);
+    public ResponseEntity<SolutionDTO> addSolution(@RequestBody SolutionDTO solution) {
+        SolutionDTO newSolution = solutionService.addSolution(solution);
         return new ResponseEntity<>(newSolution, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Solution> updateSolution(@RequestBody Solution solution) {
-        Solution updateSolution = solutionService.updateSolution(solution);
+    public ResponseEntity<SolutionDTO> updateSolution(@RequestBody SolutionDTO solution) {
+        SolutionDTO updateSolution = solutionService.updateSolution(solution);
         return new ResponseEntity<>(updateSolution, HttpStatus.OK);
     }
 
@@ -46,5 +47,4 @@ public class SolutionController {
         solutionService.deleteSolution(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

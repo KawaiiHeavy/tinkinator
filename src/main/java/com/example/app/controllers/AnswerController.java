@@ -1,6 +1,8 @@
 package com.example.app.controllers;
 
+import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
+import com.example.app.dto.SolutionDTO;
 import com.example.app.models.Answer;
 import com.example.app.models.Solution;
 import com.example.app.services.AnswerService;
@@ -20,26 +22,26 @@ public class AnswerController {
     private AnswerService answerService;
 
     @GetMapping("/all")
-    public ResponseEntity<List<Answer>> getAllAnswers() {
-        List<Answer> answers = answerService.findAllAnswers();
+    public ResponseEntity<List<AnswerDTO>> getAllAnswers() {
+        List<AnswerDTO> answers = answerService.findAllAnswers();
         return new ResponseEntity<>(answers, HttpStatus.OK);
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Answer> getAnswerById(@PathVariable("id") UUID id) {
-        Answer answer = answerService.findAnswerById(id);
+    public ResponseEntity<AnswerDTO> getAnswerById(@PathVariable("id") UUID id) {
+        AnswerDTO answer = answerService.findAnswerById(id);
         return new ResponseEntity<>(answer, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Answer> addAnswer(@RequestBody Answer answer) {
-        Answer newAnswer = answerService.addAnswer(answer);
+    public ResponseEntity<AnswerDTO> addAnswer(@RequestBody AnswerDTO answer) {
+        AnswerDTO newAnswer = answerService.addAnswer(answer);
         return new ResponseEntity<>(newAnswer, HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Answer> updateAnswer(@RequestBody Answer answer) {
-        Answer updateAnswer = answerService.updateAnswer(answer);
+    public ResponseEntity<AnswerDTO> updateAnswer(@RequestBody AnswerDTO answer) {
+        AnswerDTO updateAnswer = answerService.updateAnswer(answer);
         return new ResponseEntity<>(updateAnswer, HttpStatus.OK);
     }
 
@@ -50,14 +52,14 @@ public class AnswerController {
     }
 
     @GetMapping("/findQuestionByAnswerId/{id}")
-    public ResponseEntity<?> getQuestionByAnswerId(@PathVariable("id") UUID id){
+    public ResponseEntity<QuestionDTO> getQuestionByAnswerId(@PathVariable("id") UUID id){
         QuestionDTO question = answerService.findQuestionByAnswerId(id);
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
     @GetMapping("/findSolutionByAnswerId/{id}")
-    public ResponseEntity<?> getSolutionByAnswerId(@PathVariable("id") UUID id){
-        Solution solution = answerService.findSolutionByAnswerId(id);
+    public ResponseEntity<SolutionDTO> getSolutionByAnswerId(@PathVariable("id") UUID id){
+        SolutionDTO solution = answerService.findSolutionByAnswerId(id);
         return new ResponseEntity<>(solution, HttpStatus.OK);
     }
 

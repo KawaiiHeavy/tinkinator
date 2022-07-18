@@ -7,10 +7,9 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-public class AnswerDTO {
+public class SolutionDTO {
 
     private UUID id;
-    private String answerText;
-    private SolutionDTO solution;
+    private String solutionText;
 
 }

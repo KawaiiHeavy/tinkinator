@@ -1,6 +1,7 @@
 package com.example.app.services.impl;
 
 import com.example.app.dto.QuestionDTO;
+import com.example.app.dto.SolutionDTO;
 import com.example.app.exceptions.QuestionNotFoundException;
 import com.example.app.models.Answer;
 import com.example.app.models.Question;
@@ -14,6 +15,7 @@ import com.example.app.utils.Streams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +34,10 @@ public class QuestionServiceImpl implements QuestionService {
     @Autowired
     private Mapper mapper;
 
-    public QuestionDTO addQuestion(Question question) {
-        System.out.println(question);
+    public QuestionDTO addQuestion(QuestionDTO questionDTO) {
+
+        Question question = mapper.mapToQuestion(questionDTO);
+
         question.getAnswers().forEach(answer -> {
             Solution solutionFromAns = answer.getSolution();
             Optional<Solution> solution = solutionRepository
@@ -46,18 +50,16 @@ public class QuestionServiceImpl implements QuestionService {
 
     public List<QuestionDTO> findAllQuestions() {
         List<QuestionDTO> questions = mapper.mapToQuestionsDTO(questionRepository.findAll());
-        System.out.println(questions);
         return questions;
-
     }
 
-    public Question updateQuestion(Question question) {
-        return questionRepository.save(question);
+    public QuestionDTO updateQuestion(QuestionDTO question) {
+        return mapper.mapToQuestionDTO(questionRepository.save(mapper.mapToQuestion(question)));
     }
 
-    public Question findQuestionById(UUID id) {
-        return questionRepository.findQuestionById(id)
-                .orElseThrow(() -> new QuestionNotFoundException("Question by id " + id + " was not found"));
+    public QuestionDTO findQuestionById(UUID id) {
+        return mapper.mapToQuestionDTO(questionRepository.findQuestionById(id)
+                .orElseThrow(() -> new QuestionNotFoundException("Question by id " + id + " was not found")));
     }
 
     @Transactional

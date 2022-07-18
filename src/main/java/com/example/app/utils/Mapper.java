@@ -2,6 +2,7 @@ package com.example.app.utils;
 
 import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
+import com.example.app.dto.SolutionDTO;
 import com.example.app.models.Answer;
 import com.example.app.models.Question;
 import com.example.app.models.Solution;
@@ -22,14 +23,36 @@ public class Mapper {
         AnswerDTO answerDTO = new AnswerDTO();
         answerDTO.setId(answer.getId());
         answerDTO.setAnswerText(answer.getAnswerText());
-        answerDTO.setSolution(answer.getSolution());
+        answerDTO.setSolution(mapToSolutionDTO(answer.getSolution()));
 
         return answerDTO;
     }
 
-    public QuestionDTO mapToQuestionDTO(Question question){
+    public Answer mapToAnswer(AnswerDTO answerDTO) {
+        Answer answer = new Answer();
+        answer.setId(answerDTO.getId());
+        answer.setAnswerText(answerDTO.getAnswerText());
+        answer.setSolution(mapToSolution(answerDTO.getSolution()));
 
-        Streams<Answer> streams = new Streams<>();
+        return answer;
+    }
+
+    public Question mapToQuestion(QuestionDTO questionDTO){
+
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setQuestionText(questionDTO.getQuestionText());
+        question.setRoot(questionDTO.isRoot());
+
+        Set<Answer> answers = questionDTO.getAnswers().stream()
+                .collect(HashSet::new, (set, ans) -> set.add(mapToAnswer(ans)),
+                        HashSet::addAll);
+
+        question.setAnswers(answers);
+        return question;
+    }
+
+    public QuestionDTO mapToQuestionDTO(Question question){
 
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setId(question.getId());
@@ -46,12 +69,26 @@ public class Mapper {
 
     public List<QuestionDTO> mapToQuestionsDTO(List<Question> questions){
 
-        Streams<Question> streams = new Streams<>();
-
         return questions.stream()
                 .collect(ArrayList::new,
                         (list, quest) -> list.add(mapToQuestionDTO(quest)),
                         ArrayList::addAll);
+    }
+
+    public SolutionDTO mapToSolutionDTO(Solution solution) {
+        SolutionDTO solutionDTO = new SolutionDTO();
+        solutionDTO.setId(solution.getId());
+        solutionDTO.setSolutionText(solution.getSolutionText());
+
+        return solutionDTO;
+    }
+
+    public Solution mapToSolution(SolutionDTO solutionDTO){
+        Solution solution = new Solution();
+        solution.setId(solutionDTO.getId());
+        solution.setSolutionText(solutionDTO.getSolutionText());
+
+        return solution;
     }
 
 }
