@@ -36,5 +36,4 @@ export class QuestionService {
     public getRandomQuestion(): Observable<Question> {
         return this.http.get<Question>(`${this.apiServerUrl}/question/findRandom`);
     }
-
 }

@@ -14,9 +14,14 @@
 
 <div style="margin-top: 10px;" class="container">
     <h2>Решения</h2>
-    <div class="row" *ngFor="let solution of this.availableSolutions">
+    <div class="row" *ngFor="let solution of this.availableSolutions; let i = index">
         <mat-divider></mat-divider>
         <p>Решение: {{ solution.solutionText }}</p>
         <p>ID: {{ solution.id }}</p>
+        <div>
+            <button mat-raised-button color="accent" class="accent" (click)="deleteSolution(solution, i)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

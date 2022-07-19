@@ -63,4 +63,11 @@ public class AnswerController {
         return new ResponseEntity<>(solution, HttpStatus.OK);
     }
 
+    @GetMapping("/attachQuestion/{questionId}/{answerId}")
+    public ResponseEntity<?> attachQuestion(@PathVariable("questionId") UUID questionId,
+                                            @PathVariable("answerId") UUID answerId) {
+        answerService.attachQuestion(questionId, answerId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

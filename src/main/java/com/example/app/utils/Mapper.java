@@ -23,7 +23,10 @@ public class Mapper {
         AnswerDTO answerDTO = new AnswerDTO();
         answerDTO.setId(answer.getId());
         answerDTO.setAnswerText(answer.getAnswerText());
-        answerDTO.setSolution(mapToSolutionDTO(answer.getSolution()));
+        Solution solution = answer.getSolution();
+        if (solution != null) {
+            answerDTO.setSolution(mapToSolutionDTO(solution));
+        }
 
         return answerDTO;
     }

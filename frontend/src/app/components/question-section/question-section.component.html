@@ -24,14 +24,14 @@
 
 <div class="container">
     <h2>Вопросы</h2>
-    <div class="row" *ngFor="let question of this.availableQuestions">
+    <div class="row" *ngFor="let question of this.availableQuestions; let i = index">
         <mat-divider></mat-divider>
         <div class="col">
             <p>Вопрос: {{ question.questionText }}</p>
             <p>ID: {{ question.id }}</p>
         </div>
         <div class="col">
-            <button mat-button color="accent" (click)="deleteQuestion(question)">
+            <button mat-button color="accent" (click)="deleteQuestion(question, i)">
                 <mat-icon>delete</mat-icon>
             </button>
             <button mat-button color="accent" (click)="openEditDialog(question)">

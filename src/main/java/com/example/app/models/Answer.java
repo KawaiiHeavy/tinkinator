@@ -34,10 +34,9 @@ public class Answer {
     @Column(name = "answer_text", nullable = false)
     private String answerText;
 
-    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
     private Question question;
 
-    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.EAGER)
+    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
     private Solution solution;
-
 }

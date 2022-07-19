@@ -27,6 +27,7 @@ export class SolutionSectionComponent implements OnInit {
     .subscribe({ 
       next: (s) => 
       { 
+        this.availableSolutions.push(s);
         this.solution = new Solution();
         this.isFailed = false;
       },
@@ -37,15 +38,15 @@ export class SolutionSectionComponent implements OnInit {
   }
 
   showAvailableSolutions(): void {
-    this.solutionService.getAllSolutions()
-    .subscribe(solutions => {
-      this.availableSolutions = solutions}
-    );
+    this.solutionService.getAllSolutions().subscribe(solutions => {
+      this.availableSolutions = solutions;
+    });
   }
 
-  deleteSolution(solution: Solution): void {
-    this.solutionService.deleteSolution(solution.id).subscribe();
-    this.showAvailableSolutions();
+  deleteSolution(solution: Solution, index: number): void {
+    this.solutionService.deleteSolution(solution.id).subscribe(sol => {
+      this.availableSolutions.splice(index, 1);
+    });
   }
 
 }

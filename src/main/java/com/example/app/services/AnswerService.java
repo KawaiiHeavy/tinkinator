@@ -18,4 +18,5 @@ public interface AnswerService {
     void deleteAnswer(UUID id);
     QuestionDTO findQuestionByAnswerId(UUID id);
     SolutionDTO findSolutionByAnswerId(UUID id);
+    void attachQuestion(UUID questionId, UUID answerId);
 }

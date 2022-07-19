@@ -10,20 +10,21 @@ import com.example.app.models.Answer;
 import com.example.app.models.Question;
 import com.example.app.models.Solution;
 import com.example.app.repositories.AnswerRepository;
+import com.example.app.repositories.QuestionRepository;
 import com.example.app.services.AnswerService;
 import com.example.app.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
+    @Autowired
+    private QuestionRepository questionRepository;
     @Autowired
     private AnswerRepository answerRepository;
     @Autowired
@@ -49,20 +50,44 @@ public class AnswerServiceImpl implements AnswerService {
                 .orElseThrow(() -> new AnswerNotFoundException("Answer by id " + id + " was not found")));
     }
 
-    public QuestionDTO findQuestionByAnswerId(UUID id){
+    public QuestionDTO findQuestionByAnswerId(UUID id) {
         Optional<Question> question = answerRepository.findQuestionByAnswerId(id);
         return mapper.mapToQuestionDTO(question.orElseThrow(()
                 -> new QuestionNotFoundException("Question by answerId " + id + " was not found")));
     }
 
-    public SolutionDTO findSolutionByAnswerId(UUID id){
+    public SolutionDTO findSolutionByAnswerId(UUID id) {
         Optional<Solution> solution = answerRepository.findSolutionByAnswerId(id);
         return mapper.mapToSolutionDTO(solution.orElseThrow(()
                 -> new SolutionNotFoundException("Solution by answerId " + id + " was not found")));
     }
 
+    public void attachQuestion(UUID questionId, UUID answerId) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        answerRepository.addQuestionToAnswer(question.get(), answerId);
+    }
+
     @Transactional
     public void deleteAnswer(UUID id) {
-        answerRepository.deleteAnswerById(id);
+        Optional<Answer> optionalAnswer = answerRepository.findAnswerById(id);
+        optionalAnswer.ifPresent(answer -> {
+            System.out.println(answer);
+
+            for (Question question : questionRepository.findAll()){
+                Set<Answer> answers = question.getAnswers();
+                if (answers.contains(answer)){
+                    answers.remove(answer);
+                }
+            }
+
+            if (answer.getQuestion() != null) {
+                answer.setQuestion(null);
+            }
+            if (answer.getSolution() != null) {
+                answer.setSolution(null);
+            }
+
+            answerRepository.delete(answer);
+        });
     }
 }
