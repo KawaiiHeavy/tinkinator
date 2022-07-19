@@ -40,6 +40,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         question.getAnswers().forEach(answer -> {
             Solution solutionFromAns = answer.getSolution();
+
             Optional<Solution> solution = solutionRepository
                     .findSolutionBySolutionText(solutionFromAns.getSolutionText());
             solution.ifPresent(answer::setSolution);

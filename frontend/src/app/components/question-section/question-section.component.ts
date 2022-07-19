@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
 import { AnswerService } from 'src/app/services/answer.service';
+import { DataExchangingService } from 'src/app/services/data-exchanging.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { SolutionService } from 'src/app/services/solution.service';
 
@@ -21,6 +22,7 @@ export class QuestionSectionComponent implements OnInit {
 
   constructor(private questionService: QuestionService,
     private solutionService: SolutionService,
+    private dataExchaningService: DataExchangingService,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -40,8 +42,11 @@ export class QuestionSectionComponent implements OnInit {
   }
 
   addQuestion(): void {
-    this.questionService.addQuestion(this.currentQuestion).subscribe();
-    this.showAvailableQuestions();
+    this.questionService.addQuestion(this.currentQuestion).subscribe(question => {
+      this.availableQuestions.push(question);
+      let message: string = JSON.stringify(this.currentQuestion.answers);
+      this.dataExchaningService.changeMessage(message);
+    });
   }
 
   showAvailableQuestions(): void {
@@ -67,9 +72,10 @@ export class QuestionSectionComponent implements OnInit {
       });
   }
 
-  deleteQuestion(question: Question): void {
-    this.questionService.deleteQuestion(question.id).subscribe();
-    this.showAvailableQuestions();
+  deleteQuestion(question: Question, index: number): void {
+    this.questionService.deleteQuestion(question.id).subscribe(question => {
+      this.availableQuestions.splice(index, 1);
+    });
   }
 }
 
@@ -101,7 +107,9 @@ export class EditQuestionDialog {
   }
 
   confirm(): void {
-     this.questionService.addQuestion(this.data).subscribe();
+     this.questionService.addQuestion(this.data).subscribe(quest => {
+       console.log(this.data);
+     });
      this.dialogRef.close();
   }
 

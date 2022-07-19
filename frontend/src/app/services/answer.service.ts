@@ -43,4 +43,8 @@ export class AnswerService {
         return this.http.get<Solution>(`${this.apiServerUrl}/answer/findSolutionByAnswerId/${answerId}`);
     }
 
+    public attachQuestion(questionId: string, answerId: string): Observable<void> {
+        return this.http.get<void>(`${this.apiServerUrl}/answer/attachQuestion/${questionId}/${answerId}`);
+    }
+
 }

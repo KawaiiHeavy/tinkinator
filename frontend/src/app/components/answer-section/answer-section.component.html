@@ -1,13 +1,13 @@
 <div class="container">
     <h2>Ответы</h2>
-    <div class="row" *ngFor="let answer of this.answers">
+    <div class="row" *ngFor="let answer of this.answers; let i = index">
         <mat-divider></mat-divider>
         <div class="col">
             <p>Ответ: {{ answer.answerText }}</p>
             <p>ID ответа: {{ answer.id }}</p>
         </div>
         <div class="col">
-            <button mat-button color="accent" (click)="deleteAnswer(answer)">
+            <button mat-button color="accent" (click)="deleteAnswer(answer, i)">
                 <mat-icon>delete</mat-icon>
             </button>
             <button mat-button color="accent" (click)="openEditDialog(answer)">
