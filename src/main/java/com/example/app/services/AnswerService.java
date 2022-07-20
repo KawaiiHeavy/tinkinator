@@ -3,8 +3,6 @@ package com.example.app.services;
 import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.dto.SolutionDTO;
-import com.example.app.models.Answer;
-import com.example.app.models.Solution;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,4 +17,5 @@ public interface AnswerService {
     QuestionDTO findQuestionByAnswerId(UUID id);
     SolutionDTO findSolutionByAnswerId(UUID id);
     void attachQuestion(UUID questionId, UUID answerId);
+    Integer countAllAnswers();
 }

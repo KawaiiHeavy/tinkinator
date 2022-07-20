@@ -15,7 +15,6 @@ import com.example.app.services.AnswerService;
 import com.example.app.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.TransactionDefinition;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -65,6 +64,10 @@ public class AnswerServiceImpl implements AnswerService {
     public void attachQuestion(UUID questionId, UUID answerId) {
         Optional<Question> question = questionRepository.findById(questionId);
         answerRepository.addQuestionToAnswer(question.get(), answerId);
+    }
+
+    public Integer countAllAnswers() {
+        return answerRepository.countAllByIdIsNotNull();
     }
 
     @Transactional

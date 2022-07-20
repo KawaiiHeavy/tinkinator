@@ -36,4 +36,6 @@ public interface AnswerRepository extends JpaRepository<Answer, UUID> {
     @Query("update Answer a set a.question=:question where a.id=:answerId")
     Optional<?> addQuestionToAnswer(Question question, UUID answerId);
 
+    Optional<Answer> findAnswerByAnswerText(String answerText);
+    Integer countAllByIdIsNotNull();
 }

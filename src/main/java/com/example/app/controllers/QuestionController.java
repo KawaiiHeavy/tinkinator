@@ -1,7 +1,6 @@
 package com.example.app.controllers;
 
 import com.example.app.dto.QuestionDTO;
-import com.example.app.models.Question;
 import com.example.app.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
