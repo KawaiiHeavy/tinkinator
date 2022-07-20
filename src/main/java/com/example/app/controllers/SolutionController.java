@@ -3,6 +3,9 @@ package com.example.app.controllers;
 import com.example.app.dto.SolutionDTO;
 import com.example.app.services.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +54,13 @@ public class SolutionController {
     public ResponseEntity<Integer> countAllSolutions() {
         Integer count = solutionService.countAllSolutions();
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/allPageable")
+    public ResponseEntity<Page<SolutionDTO>> getAllSolutionsPaging(@RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<SolutionDTO> solutionPage = solutionService.getAllSolutionsPaging(paging);
+        return new ResponseEntity<>(solutionPage, HttpStatus.OK);
     }
 }
