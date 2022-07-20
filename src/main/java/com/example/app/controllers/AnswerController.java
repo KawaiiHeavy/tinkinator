@@ -3,8 +3,6 @@ package com.example.app.controllers;
 import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.dto.SolutionDTO;
-import com.example.app.models.Answer;
-import com.example.app.models.Solution;
 import com.example.app.services.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -70,4 +68,9 @@ public class AnswerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/countAll")
+    public ResponseEntity<Integer> countAllAnswers() {
+        Integer count = answerService.countAllAnswers();
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
 }

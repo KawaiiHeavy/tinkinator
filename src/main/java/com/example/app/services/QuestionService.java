@@ -1,7 +1,6 @@
 package com.example.app.services;
 
 import com.example.app.dto.QuestionDTO;
-import com.example.app.models.Question;
 
 import java.util.List;
 import java.util.UUID;

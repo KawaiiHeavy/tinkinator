@@ -1,7 +1,6 @@
 package com.example.app.controllers;
 
 import com.example.app.dto.SolutionDTO;
-import com.example.app.models.Solution;
 import com.example.app.services.SolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,5 +45,11 @@ public class SolutionController {
     public ResponseEntity<?> deleteSolution(@PathVariable("id") UUID id) {
         solutionService.deleteSolution(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/countAll")
+    public ResponseEntity<Integer> countAllSolutions() {
+        Integer count = solutionService.countAllSolutions();
+        return new ResponseEntity<>(count, HttpStatus.OK);
     }
 }
