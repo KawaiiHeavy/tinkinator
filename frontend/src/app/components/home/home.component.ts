@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientRequest } from 'src/app/models/clientRequest.model';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  request: ClientRequest = new ClientRequest();
+  resultFromServer: String;
+
+  constructor(private messageService: MessageService) { }
 
   ngOnInit(): void {
+  }
+
+  sendMessage(): void {
+    this.messageService.sendRequest(this.request)
+    .subscribe(message => {
+      this.resultFromServer = message;
+      this.request = new ClientRequest();
+    });
   }
 
 }

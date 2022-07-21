@@ -1,9 +1,11 @@
 package com.example.app.utils;
 
 import com.example.app.dto.AnswerDTO;
+import com.example.app.dto.ClientRequestDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.dto.SolutionDTO;
 import com.example.app.models.Answer;
+import com.example.app.models.ClientRequest;
 import com.example.app.models.Question;
 import com.example.app.models.Solution;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,7 @@ public class Mapper {
         return answer;
     }
 
-    public Question mapToQuestion(QuestionDTO questionDTO){
+    public Question mapToQuestion(QuestionDTO questionDTO) {
 
         Question question = new Question();
         question.setId(questionDTO.getId());
@@ -57,7 +59,7 @@ public class Mapper {
         return question;
     }
 
-    public QuestionDTO mapToQuestionDTO(Question question){
+    public QuestionDTO mapToQuestionDTO(Question question) {
 
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setId(question.getId());
@@ -76,7 +78,21 @@ public class Mapper {
         return questionDTO;
     }
 
-    public List<QuestionDTO> mapToQuestionsDTO(List<Question> questions){
+    public ClientRequestDTO mapToClientRequestDTO(ClientRequest clientRequest) {
+        ClientRequestDTO clientRequestDTO = new ClientRequestDTO();
+        clientRequest.setId(clientRequest.getId());
+        clientRequest.setRequestText(clientRequest.getRequestText());
+        return clientRequestDTO;
+    }
+
+    public ClientRequest mapToClientRequest(ClientRequestDTO clientRequestDTO) {
+        ClientRequest clientRequest = new ClientRequest();
+        clientRequest.setId(clientRequestDTO.getId());
+        clientRequest.setRequestText(clientRequestDTO.getRequestText());
+        return clientRequest;
+    }
+
+    public List<QuestionDTO> mapToQuestionsDTO(List<Question> questions) {
 
         return questions.stream()
                 .collect(ArrayList::new,
@@ -92,7 +108,7 @@ public class Mapper {
         return solutionDTO;
     }
 
-    public Solution mapToSolution(SolutionDTO solutionDTO){
+    public Solution mapToSolution(SolutionDTO solutionDTO) {
         Solution solution = new Solution();
         solution.setId(solutionDTO.getId());
         solution.setSolutionText(solutionDTO.getSolutionText());
