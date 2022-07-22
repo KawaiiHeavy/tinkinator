@@ -21,7 +21,6 @@ import java.util.UUID;
 @ToString
 public class ClientRequest implements Serializable {
 
-    @JsonProperty
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -33,7 +32,6 @@ public class ClientRequest implements Serializable {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @JsonProperty
     @Column(name = "request_text", nullable = false)
     private String requestText;
 

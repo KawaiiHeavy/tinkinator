@@ -80,8 +80,8 @@ public class Mapper {
 
     public ClientRequestDTO mapToClientRequestDTO(ClientRequest clientRequest) {
         ClientRequestDTO clientRequestDTO = new ClientRequestDTO();
-        clientRequest.setId(clientRequest.getId());
-        clientRequest.setRequestText(clientRequest.getRequestText());
+        clientRequestDTO.setId(clientRequest.getId());
+        clientRequestDTO.setRequestText(clientRequest.getRequestText());
         return clientRequestDTO;
     }
 

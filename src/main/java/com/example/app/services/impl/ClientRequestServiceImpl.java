@@ -1,9 +1,10 @@
 package com.example.app.services.impl;
 
 import com.example.app.dto.ClientRequestDTO;
+import com.example.app.models.ClientRequest;
 import com.example.app.services.ClientRequestService;
 import com.example.app.utils.Mapper;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,12 +22,13 @@ public class ClientRequestServiceImpl implements ClientRequestService {
     @Autowired
     private Mapper mapper;
 
-    public ClientRequestDTO addClientRequest(ClientRequestDTO clientRequest) {
+    public ClientRequestDTO addClientRequest(ClientRequestDTO clientRequestDTO) {
 
-        logger.info(String.format("Emit '%s'", clientRequest));
-        template.convertAndSend("messages", mapper.mapToClientRequest(clientRequest));
+        logger.info(String.format("Emit '%s'", clientRequestDTO.toString()));
+        ClientRequest clientRequest = (ClientRequest) template.convertSendAndReceive("messages",
+                mapper.mapToClientRequest(clientRequestDTO));
         logger.info(String.format("Received on producer '%s'", clientRequest.toString()));
 
-        return clientRequest;
+        return mapper.mapToClientRequestDTO(clientRequest);
     }
 }

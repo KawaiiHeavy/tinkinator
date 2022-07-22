@@ -13,7 +13,7 @@ export class MessageService {
 
     constructor(private http: HttpClient){}
 
-    public sendRequest(request: ClientRequest): Observable<string> {
-        return this.http.post<string>(`${this.apiServerUrl}/clientRequest/add`, request);
+    public sendRequest(request: ClientRequest): Observable<ClientRequest> {
+        return this.http.post<ClientRequest>(`${this.apiServerUrl}/clientRequest/add`, request);
     }
 }

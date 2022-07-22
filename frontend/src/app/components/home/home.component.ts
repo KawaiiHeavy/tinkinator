@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   sendMessage(): void {
     this.messageService.sendRequest(this.request)
     .subscribe(message => {
-      this.resultFromServer = message;
+      this.resultFromServer = message.requestText;
+      console.log(message);
       this.request = new ClientRequest();
     });
   }
