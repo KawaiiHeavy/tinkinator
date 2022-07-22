@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Pageable } from "../models/pageable";
 import { Solution } from "../models/solution.model";
 
 @Injectable({
@@ -15,6 +16,10 @@ export class SolutionService {
 
     public getAllSolutions(): Observable<Solution[]> {
         return this.http.get<Solution[]>(`${this.apiServerUrl}/solution/all`);
+    }
+
+    public getAllSolutionsPaging(page: number, size: number): Observable<Pageable<Solution>> {
+        return this.http.get<Pageable<Solution>>(`${this.apiServerUrl}/solution/allPageable?page=${page}&size=${size}`);
     }
 
     public addSolution(solution: Solution): Observable<Solution> {

@@ -12,16 +12,33 @@
     </div>
 </div>
 
+
 <div style="margin-top: 10px;" class="container">
     <h2>Решения</h2>
-    <div class="row" *ngFor="let solution of this.availableSolutions; let i = index">
-        <mat-divider></mat-divider>
-        <p>Решение: {{ solution.solutionText }}</p>
-        <p>ID: {{ solution.id }}</p>
-        <div>
-            <button mat-raised-button color="accent" class="accent" (click)="deleteSolution(solution, i)">
-                <mat-icon>delete</mat-icon>
-            </button>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered p-0 m-0">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Текст решения</th>
+                    <th scope="col">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" *ngFor="let solution of availableSolutions; let i = index">
+                    <td>{{ solution.id }}</td>
+                    <td>{{ solution.solutionText }}</td>
+                    <td>
+                        <button mat-raised-button color="accent" class="accent" (click)="deleteSolution(solution, i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr scope="row" *ngIf="availableSolutions.length === 0">
+                    <td colspan="6" class="text-center">Решения отсутствуют</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="this.length" (page)="nextPage($event)"> </mat-paginator>
     </div>
 </div>

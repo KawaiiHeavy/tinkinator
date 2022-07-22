@@ -3,12 +3,17 @@ package com.example.app.services.impl;
 import com.example.app.dto.SolutionDTO;
 import com.example.app.exceptions.SolutionNotFoundException;
 import com.example.app.models.Answer;
+import com.example.app.models.Solution;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.SolutionRepository;
 import com.example.app.services.SolutionService;
 import com.example.app.utils.Mapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -47,6 +52,11 @@ public class SolutionServiceImpl implements SolutionService {
 
     public Integer countAllSolutions() {
         return solutionRepository.countAllByIdIsNotNull();
+    }
+
+    public Page<SolutionDTO> getAllSolutionsPaging(Pageable paging) {
+        Page<Solution> page = solutionRepository.findAll(paging);
+        return page.map(solution -> mapper.mapToSolutionDTO(solution));
     }
 
     @Transactional

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Solution } from 'src/app/models/solution.model';
 import { SolutionService } from 'src/app/services/solution.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-solution-section',
@@ -10,7 +11,10 @@ import { SolutionService } from 'src/app/services/solution.service';
 export class SolutionSectionComponent implements OnInit {
 
   solution: Solution = new Solution();
+  length: number = 0;
+
   isFailed: boolean = false;
+  
   hideDropdown: boolean;
 
   availableSolutions: Solution[];
@@ -19,7 +23,12 @@ export class SolutionSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.hideDropdown = false;
-    this.showAvailableSolutions();
+    this.solutionService.getAllSolutionsPaging(0, 5)
+      .subscribe(pageable => {
+        this.availableSolutions = pageable.content;
+        console.log(pageable);
+        this.length = pageable.totalElements;
+      });
   }
 
   addSolution(){
@@ -37,9 +46,12 @@ export class SolutionSectionComponent implements OnInit {
     });
   }
 
-  showAvailableSolutions(): void {
-    this.solutionService.getAllSolutions().subscribe(solutions => {
-      this.availableSolutions = solutions;
+  nextPage(event: PageEvent): void {
+    this.solutionService.getAllSolutionsPaging(event.pageIndex, event.pageSize)
+    .subscribe(pageable => {
+      this.availableSolutions = pageable.content;
+      console.log(this.availableSolutions);
+      this.length = pageable.totalElements;
     });
   }
 
