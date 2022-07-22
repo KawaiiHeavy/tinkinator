@@ -38,6 +38,7 @@ export class SolutionSectionComponent implements OnInit {
       { 
         this.availableSolutions.push(s);
         this.solution = new Solution();
+        this.length++;
         this.isFailed = false;
       },
       error: (e) => {

@@ -4,6 +4,7 @@ import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.dto.SolutionDTO;
 import com.example.app.services.AnswerService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "/api/answer")
 public class AnswerController {
 
-    @Autowired
     private AnswerService answerService;
 
     @GetMapping("/all")

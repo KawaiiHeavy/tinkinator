@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ClientRequest } from 'src/app/models/clientRequest.model';
+import { ClientRequestService } from 'src/app/services/clientRequest.service';
 
 @Component({
   selector: 'app-testing-menu',
@@ -7,14 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestingMenuComponent implements OnInit {
 
-  clientRequests: string[] = [
-    "Памагите пажалуста",
-    "Help me!"
-  ];
+  clientRequests: ClientRequest[] = [];
 
-  constructor() { }
+  constructor(private clientRequestService: ClientRequestService) { }
 
   ngOnInit(): void {
+    this.getAllClientRequests();
+  }
+
+  getAllClientRequests(): void {
+    this.clientRequestService.getAllRequests()
+    .subscribe(requests => this.clientRequests = requests);
   }
 
 }

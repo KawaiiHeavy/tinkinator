@@ -8,12 +8,10 @@ import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.SolutionRepository;
 import com.example.app.services.SolutionService;
 import com.example.app.utils.Mapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

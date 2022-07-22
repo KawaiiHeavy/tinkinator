@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientRequest } from 'src/app/models/clientRequest.model';
-import { MessageService } from 'src/app/services/message.service';
+import { ClientRequestService } from 'src/app/services/clientRequest.service';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +12,13 @@ export class HomeComponent implements OnInit {
   request: ClientRequest = new ClientRequest();
   resultFromServer: String;
 
-  constructor(private messageService: MessageService) { }
+  constructor(private clientRequestService: ClientRequestService) { }
 
   ngOnInit(): void {
   }
 
   sendMessage(): void {
-    this.messageService.sendRequest(this.request)
+    this.clientRequestService.sendRequest(this.request)
     .subscribe(message => {
       this.resultFromServer = message.requestText;
       console.log(message);
