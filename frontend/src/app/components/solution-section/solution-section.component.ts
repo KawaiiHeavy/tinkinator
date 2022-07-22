@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Solution } from 'src/app/models/solution.model';
 import { SolutionService } from 'src/app/services/solution.service';
-import { PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { PaginatorUtils } from 'src/utils/paginator.utils';
 
 @Component({
   selector: 'app-solution-section',
@@ -10,6 +11,9 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class SolutionSectionComponent implements OnInit {
 
+  @ViewChild('paginator')
+  paginator: MatPaginator;
+  
   solution: Solution = new Solution();
   length: number = 0;
 
@@ -19,14 +23,14 @@ export class SolutionSectionComponent implements OnInit {
 
   availableSolutions: Solution[];
 
-  constructor(private solutionService: SolutionService) { }
+  constructor(private solutionService: SolutionService, 
+              private paginatorUtils: PaginatorUtils) { }
 
   ngOnInit(): void {
     this.hideDropdown = false;
     this.solutionService.getAllSolutionsPaging(0, 5)
       .subscribe(pageable => {
         this.availableSolutions = pageable.content;
-        console.log(pageable);
         this.length = pageable.totalElements;
       });
   }
@@ -36,9 +40,11 @@ export class SolutionSectionComponent implements OnInit {
     .subscribe({ 
       next: (s) => 
       { 
-        this.availableSolutions.push(s);
-        this.solution = new Solution();
+        if (this.length !== this.paginator.pageSize){
+          this.availableSolutions.push(s);
+        }
         this.length++;
+        this.solution = new Solution();
         this.isFailed = false;
       },
       error: (e) => {
@@ -51,7 +57,6 @@ export class SolutionSectionComponent implements OnInit {
     this.solutionService.getAllSolutionsPaging(event.pageIndex, event.pageSize)
     .subscribe(pageable => {
       this.availableSolutions = pageable.content;
-      console.log(this.availableSolutions);
       this.length = pageable.totalElements;
     });
   }
@@ -59,6 +64,20 @@ export class SolutionSectionComponent implements OnInit {
   deleteSolution(solution: Solution, index: number): void {
     this.solutionService.deleteSolution(solution.id).subscribe(sol => {
       this.availableSolutions.splice(index, 1);
+      if (this.availableSolutions.length == 0){
+        this.paginator.previousPage();
+      }
+      else {
+        let newIndex: number = this.paginatorUtils.getIndexOfPagedObject(
+          this.paginator.pageIndex, 
+          this.paginator.pageSize);
+
+        this.solutionService.getAllSolutionsPaging(newIndex, 1).subscribe(pageable => {
+          if (pageable.content.length != 0){
+            this.availableSolutions.push(pageable.content[0]);
+          }});
+      }
+      this.length--;
     });
   }
 
