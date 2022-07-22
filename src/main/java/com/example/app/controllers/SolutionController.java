@@ -2,6 +2,7 @@ package com.example.app.controllers;
 
 import com.example.app.dto.SolutionDTO;
 import com.example.app.services.SolutionService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping(path = "/api/solution")
 public class SolutionController {
 
-    @Autowired
     private SolutionService solutionService;
 
     @GetMapping("/all")

@@ -3,6 +3,7 @@ package com.example.app.controllers;
 
 import com.example.app.dto.ClientRequestDTO;
 import com.example.app.services.ClientRequestService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/clientRequest")
+@AllArgsConstructor
 public class ClientRequestController {
 
     private ClientRequestService clientRequestService;
-
-    @Autowired
-    public ClientRequestController(ClientRequestService clientRequestService) {
-        this.clientRequestService = clientRequestService;
-    }
 
     @PostMapping("/add")
     public ResponseEntity<ClientRequestDTO> addClientRequest(@RequestBody ClientRequestDTO clientRequestDTO) {
