@@ -1,1 +1,12 @@
-<p>Вау, оно работает (здесь должна быть ссылочка на донаты)</p>
+<div class="container">
+    <p>Вау, оно работает (здесь должна быть ссылочка на донаты, но будет всего лишь кнопка для ребита)</p>
+    <input matInput type="text" placeholder="Clearable input" [(ngModel)]="request.requestText">
+</div>
+<div class="container">
+    <button mat-raised-button color="accent" *ngIf="request.requestText" (click)="sendMessage()">
+        Отправить сообщение
+    </button>
+</div>
+<div class="container">
+    <p>{{ this.resultFromServer }}</p>
+</div>
