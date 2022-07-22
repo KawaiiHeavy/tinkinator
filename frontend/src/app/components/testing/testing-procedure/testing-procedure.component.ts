@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Answer } from 'src/app/models/answer.model';
+import { ClientRequest } from 'src/app/models/clientRequest.model';
 import { Question } from 'src/app/models/question.model';
 import { AnswerService } from 'src/app/services/answer.service';
 import { QuestionService } from 'src/app/services/question.service';
@@ -12,7 +13,7 @@ import { QuestionService } from 'src/app/services/question.service';
 export class TestingProcedureComponent implements OnInit {
 
   @Input()
-  clientRequest: string;
+  clientRequest: ClientRequest;
 
   show: boolean = false;
   currentQuestion: Question;

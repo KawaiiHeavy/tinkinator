@@ -7,7 +7,7 @@ import { ClientRequest } from "../models/clientRequest.model";
 @Injectable({
     providedIn: 'root'
 })
-export class MessageService { 
+export class ClientRequestService { 
 
     private apiServerUrl = environment.apiBaseUrl;
 
@@ -15,5 +15,9 @@ export class MessageService {
 
     public sendRequest(request: ClientRequest): Observable<ClientRequest> {
         return this.http.post<ClientRequest>(`${this.apiServerUrl}/clientRequest/add`, request);
+    }
+
+    public getAllRequests(): Observable<ClientRequest[]> {
+        return this.http.get<ClientRequest[]>(`${this.apiServerUrl}/clientRequest/all`);
     }
 }
