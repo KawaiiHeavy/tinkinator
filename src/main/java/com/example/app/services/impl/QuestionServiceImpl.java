@@ -10,6 +10,8 @@ import com.example.app.repositories.QuestionRepository;
 import com.example.app.repositories.SolutionRepository;
 import com.example.app.services.QuestionService;
 import com.example.app.utils.Mapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +21,14 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+@Log4j2
 @Service
+@AllArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
 
-    @Autowired
     private AnswerRepository answerRepository;
-    @Autowired
     private SolutionRepository solutionRepository;
-    @Autowired
     private QuestionRepository questionRepository;
-    @Autowired
     private Mapper mapper;
 
     public QuestionDTO addQuestion(QuestionDTO questionDTO) {

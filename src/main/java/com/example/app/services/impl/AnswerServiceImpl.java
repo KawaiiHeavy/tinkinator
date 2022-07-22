@@ -13,20 +13,22 @@ import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.QuestionRepository;
 import com.example.app.services.AnswerService;
 import com.example.app.utils.Mapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
 
+@Log4j2
 @Service
+@AllArgsConstructor
 public class AnswerServiceImpl implements AnswerService {
 
-    @Autowired
     private QuestionRepository questionRepository;
-    @Autowired
     private AnswerRepository answerRepository;
-    @Autowired
     private Mapper mapper;
 
     public AnswerDTO addAnswer(AnswerDTO answer) {
