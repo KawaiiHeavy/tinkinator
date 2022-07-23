@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { Answer } from "../models/answer.model";
+import { Pageable } from "../models/pageable";
 import { Question } from "../models/question.model";
 import { Solution } from "../models/solution.model";
 
@@ -47,4 +48,7 @@ export class AnswerService {
         return this.http.get<void>(`${this.apiServerUrl}/answer/attachQuestion/${questionId}/${answerId}`);
     }
 
+    public getAllAnswersPaging(page: number, size: number): Observable<Pageable<Answer>> {
+        return this.http.get<Pageable<Answer>>(`${this.apiServerUrl}/answer/allPageable?page=${page}&size=${size}`);
+    }
 }

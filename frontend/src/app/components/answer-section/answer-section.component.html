@@ -1,21 +1,36 @@
-<div class="container">
+<div style="margin-top: 10px;" class="container">
     <h2>Ответы</h2>
-    <div class="row" *ngFor="let answer of this.answers; let i = index">
-        <mat-divider></mat-divider>
-        <div class="col">
-            <p>Ответ: {{ answer.answerText }}</p>
-            <p>ID ответа: {{ answer.id }}</p>
-        </div>
-        <div class="col">
-            <button mat-button color="accent" (click)="deleteAnswer(answer, i)">
-                <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-button color="accent" (click)="openEditDialog(answer)">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button color="accent" (click)="openDetailInfoDialog(answer)">
-                <mat-icon>info</mat-icon>
-            </button>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered p-0 m-0">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Текст ответа</th>
+                    <th scope="col">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" *ngFor="let answer of answers; let i = index">
+                    <td>{{ answer.id }}</td>
+                    <td>{{ answer.answerText }}</td>
+                    <td>
+                        <button mat-raised-button color="accent" (click)="deleteAnswer(answer, i)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-raised-button color="accent" (click)="openEditDialog(answer)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-raised-button color="accent" (click)="openDetailInfoDialog(answer)">
+                            <mat-icon>info</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr scope="row" *ngIf="answers.length === 0">
+                    <td colspan="6" class="text-center">Ответы отсутствуют</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" 
+        [length]="this.length" (page)="nextPage($event)" #paginator> </mat-paginator>
     </div>
 </div>

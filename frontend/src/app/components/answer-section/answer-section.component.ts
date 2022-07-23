@@ -1,5 +1,6 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { Answer } from 'src/app/models/answer.model';
 import { Question } from 'src/app/models/question.model';
@@ -8,6 +9,7 @@ import { AnswerService } from 'src/app/services/answer.service';
 import { DataExchangingService } from 'src/app/services/data-exchanging.service';
 import { QuestionService } from 'src/app/services/question.service';
 import { SolutionService } from 'src/app/services/solution.service';
+import { PaginatorUtils } from 'src/utils/paginator.utils';
 
 @Component({
   selector: 'app-answer-section',
@@ -16,20 +18,34 @@ import { SolutionService } from 'src/app/services/solution.service';
 })
 export class AnswerSectionComponent implements OnInit, OnDestroy {
 
+  @ViewChild('paginator')
+  paginator: MatPaginator;
+
   answers: Answer[];
+  length: number = 0;
 
   message:string;
   subscription: Subscription;
 
   constructor(private answerService: AnswerService, 
     private dataExchangingService: DataExchangingService,
+    private paginatorUtils: PaginatorUtils,
     public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.showAvailableAnswers();
+    this.answerService.getAllAnswersPaging(0, 5)
+      .subscribe(pageable => {
+        this.answers = pageable.content;
+        this.length = pageable.totalElements;
+      })
     this.subscription = this.dataExchangingService.currentMessage.subscribe(message => {
       let answers: Answer[] = JSON.parse(message);
-      answers.forEach(answer => this.answers.push(answer));
+      answers.forEach(answer => {
+        if (this.answers.length !== this.paginator.pageSize) {
+          this.answers.push(answer)
+        }
+        this.length++;
+      });
     });
   }
 
@@ -37,16 +53,31 @@ export class AnswerSectionComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  showAvailableAnswers(): void {
-    this.answerService.getAllAnswers()
-    .subscribe(answers => {
-      this.answers = answers}
-    );
+  nextPage(event: PageEvent): void {
+    this.answerService.getAllAnswersPaging(event.pageIndex, event.pageSize)
+    .subscribe(pageable => {
+      this.answers = pageable.content;
+      this.length = pageable.totalElements;
+    })
   }
 
   deleteAnswer(answer: Answer, index: number): void {
     this.answerService.deleteAnswer(answer.id).subscribe(ans => {
       this.answers.splice(index, 1);
+      if (this.answers.length == 0) {
+        this.paginator.previousPage();
+      }
+      else {
+        let newIndex: number = this.paginatorUtils.getIndexOfPagedObject(
+          this.paginator.pageIndex,
+          this.paginator.pageSize);
+
+        this.answerService.getAllAnswersPaging(newIndex, 1).subscribe(pageable => {
+          if (pageable.content.length != 0) {
+            this.answers.push(pageable.content[0]);
+          }});
+      }
+      this.length--;
     });
   }
 

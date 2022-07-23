@@ -6,6 +6,9 @@ import com.example.app.dto.SolutionDTO;
 import com.example.app.services.AnswerService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,5 +76,13 @@ public class AnswerController {
     public ResponseEntity<Integer> countAllAnswers() {
         Integer count = answerService.countAllAnswers();
         return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping("/allPageable")
+    public ResponseEntity<Page<AnswerDTO>> getAllAnswersPaging(@RequestParam(defaultValue = "0") int page,
+                                                                   @RequestParam(defaultValue = "3") int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<AnswerDTO> answerPage = answerService.getAllAnswersPaging(paging);
+        return new ResponseEntity<>(answerPage, HttpStatus.OK);
     }
 }
