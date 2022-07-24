@@ -44,7 +44,7 @@ export class QuestionSectionComponent implements OnInit {
   addQuestion(): void {
     this.questionService.addQuestion(this.currentQuestion).subscribe(question => {
       this.availableQuestions.push(question);
-      let message: string = JSON.stringify(this.currentQuestion.answers);
+      let message: string = JSON.stringify(question.answers);
       this.dataExchaningService.changeMessage(message);
     });
   }

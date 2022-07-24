@@ -15,6 +15,8 @@ import com.example.app.services.AnswerService;
 import com.example.app.utils.Mapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -69,6 +71,11 @@ public class AnswerServiceImpl implements AnswerService {
     public Integer countAllAnswers() {
         return answerRepository.countAllByIdIsNotNull();
     }
+    
+    public Page<AnswerDTO> getAllAnswersPaging(Pageable paging) {
+        Page<Answer> page = answerRepository.findAll(paging);
+        return page.map(answer -> mapper.mapToAnswerDTO(answer));
+    }
 
     @Transactional
     public void deleteAnswer(UUID id) {
@@ -76,9 +83,9 @@ public class AnswerServiceImpl implements AnswerService {
         optionalAnswer.ifPresent(answer -> {
             System.out.println(answer);
 
-            for (Question question : questionRepository.findAll()){
+            for (Question question : questionRepository.findAll()) {
                 Set<Answer> answers = question.getAnswers();
-                if (answers.contains(answer)){
+                if (answers.contains(answer)) {
                     answers.remove(answer);
                 }
             }
