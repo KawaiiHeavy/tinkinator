@@ -22,25 +22,42 @@
     </div>
 </div>
 
-<div class="container">
+
+<div style="margin-top: 10px;" class="container">
     <h2>Вопросы</h2>
-    <div class="row" *ngFor="let question of this.availableQuestions; let i = index">
-        <mat-divider></mat-divider>
-        <div class="col">
-            <p>Вопрос: {{ question.questionText }}</p>
-            <p>ID: {{ question.id }}</p>
-        </div>
-        <div class="col">
-            <button mat-button color="accent" (click)="deleteQuestion(question, i)">
-                <mat-icon>delete</mat-icon>
-            </button>
-            <button mat-button color="accent" (click)="openEditDialog(question)">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-button color="accent" (click)="openDetailInfoDialog(question)">
-                <mat-icon>info</mat-icon>
-            </button>
-        </div>
-        
+    <div class="table-responsive">
+        <table class="table table-bordered p-0 m-0">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Текст вопроса</th>
+                    <th scope="col">Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr scope="row" *ngFor="let question of availableQuestions; let i = index">
+                    <td>{{ question.id }}</td>
+                    <td>{{ question.questionText }}</td>
+                    <td>
+                        <div class="button-flex-container">
+                            <button mat-icon-button color="accent" (click)="deleteQuestion(question, i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" (click)="openEditDialog(question)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" (click)="openDetailInfoDialog(question)">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr scope="row" *ngIf="availableQuestions.length === 0">
+                    <td colspan="6" class="text-center">Вопросы отсутствуют</td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" 
+        [length]="this.length" (page)="nextPage($event)" #paginator> </mat-paginator>
     </div>
 </div>

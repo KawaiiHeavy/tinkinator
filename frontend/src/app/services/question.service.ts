@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Pageable } from "../models/pageable";
 import { Question } from "../models/question.model";
 
 @Injectable({
@@ -35,5 +36,9 @@ export class QuestionService {
 
     public getRandomQuestion(): Observable<Question> {
         return this.http.get<Question>(`${this.apiServerUrl}/question/findRandom`);
+    }
+
+    public getAllQuestionsPaging(page: number, size: number): Observable<Pageable<Question>> {
+        return this.http.get<Pageable<Question>>(`${this.apiServerUrl}/question/allPageable?page=${page}&size=${size}`);
     }
 }
