@@ -1,5 +1,6 @@
 package com.example.app.services.impl;
 
+import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.exceptions.QuestionNotFoundException;
 import com.example.app.models.Answer;
@@ -12,6 +13,8 @@ import com.example.app.services.QuestionService;
 import com.example.app.utils.Mapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -51,6 +54,11 @@ public class QuestionServiceImpl implements QuestionService {
     public List<QuestionDTO> findAllQuestions() {
         List<QuestionDTO> questions = mapper.mapToQuestionsDTO(questionRepository.findAll());
         return questions;
+    }
+
+    public Page<QuestionDTO> getAllQuestionsPaging(Pageable paging) {
+        Page<Question> page = questionRepository.findAll(paging);
+        return page.map(question -> mapper.mapToQuestionDTO(question));
     }
 
     public QuestionDTO updateQuestion(QuestionDTO question) {

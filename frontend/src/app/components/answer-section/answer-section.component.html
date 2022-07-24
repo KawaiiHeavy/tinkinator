@@ -14,15 +14,17 @@
                     <td>{{ answer.id }}</td>
                     <td>{{ answer.answerText }}</td>
                     <td>
-                        <button mat-raised-button color="accent" (click)="deleteAnswer(answer, i)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <button mat-raised-button color="accent" (click)="openEditDialog(answer)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-raised-button color="accent" (click)="openDetailInfoDialog(answer)">
-                            <mat-icon>info</mat-icon>
-                        </button>
+                        <div class="button-flex-container">
+                            <button mat-icon-button color="accent" (click)="deleteAnswer(answer, i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" (click)="openEditDialog(answer)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="accent" (click)="openDetailInfoDialog(answer)">
+                                <mat-icon>info</mat-icon>
+                            </button>
+                        </div>
                     </td>
                 </tr>
                 <tr scope="row" *ngIf="answers.length === 0">

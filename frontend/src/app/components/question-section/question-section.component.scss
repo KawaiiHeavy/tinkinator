@@ -6,3 +6,9 @@ mat-divider {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.button-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
