@@ -4,10 +4,10 @@ import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.ClientRequestDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.dto.SolutionDTO;
-import com.example.app.models.Answer;
-import com.example.app.models.ClientRequest;
-import com.example.app.models.Question;
-import com.example.app.models.Solution;
+import com.example.app.models.other.Answer;
+import com.example.app.models.other.ClientRequest;
+import com.example.app.models.question.Question;
+import com.example.app.models.other.Solution;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,14 +48,14 @@ public class Mapper {
         question.setQuestionText(questionDTO.getQuestionText());
         question.setRoot(questionDTO.isRoot());
 
-        Set<AnswerDTO> answersFromDB = questionDTO.getAnswers();
-        if (answersFromDB != null) {
-            Set<Answer> answers = answersFromDB.stream()
-                    .collect(HashSet::new, (set, ans) -> set.add(mapToAnswer(ans)),
-                            HashSet::addAll);
-
-            question.setAnswers(answers);
-        }
+//        Set<AnswerDTO> answersFromDB = questionDTO.getAnswers();
+//        if (answersFromDB != null) {
+//            Set<Answer> answers = answersFromDB.stream()
+//                    .collect(HashSet::new, (set, ans) -> set.add(mapToAnswer(ans)),
+//                            HashSet::addAll);
+//
+//            question.setAnswers(answers);
+//        }
         return question;
     }
 
@@ -66,14 +66,14 @@ public class Mapper {
         questionDTO.setQuestionText(question.getQuestionText());
         questionDTO.setRoot(question.isRoot());
 
-        Set<Answer> answersFromDB = question.getAnswers();
-        if (answersFromDB != null) {
-            Set<AnswerDTO> answers = answersFromDB.stream()
-                    .collect(HashSet::new,
-                            (set, ans) -> set.add(mapToAnswerDTO(ans)),
-                            HashSet::addAll);
-            questionDTO.setAnswers(answers);
-        }
+//        Set<Answer> answersFromDB = question.getAnswers();
+//        if (answersFromDB != null) {
+//            Set<AnswerDTO> answers = answersFromDB.stream()
+//                    .collect(HashSet::new,
+//                            (set, ans) -> set.add(mapToAnswerDTO(ans)),
+//                            HashSet::addAll);
+//            questionDTO.setAnswers(answers);
+//        }
 
         return questionDTO;
     }

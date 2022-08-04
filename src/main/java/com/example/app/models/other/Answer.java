@@ -1,5 +1,6 @@
-package com.example.app.models;
+package com.example.app.models.other;
 
+import com.example.app.models.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +10,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @ToString
-public class ClientRequest implements Serializable {
+public class Answer {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -31,7 +31,13 @@ public class ClientRequest implements Serializable {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "request_text", nullable = false)
-    private String requestText;
+    @Column(name = "answer_text", nullable = false)
+    private String answerText;
 
+    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
+    private Solution solution;
+
+    @Column(name = "question_id")
+    @Type(type = "uuid-char")
+    private UUID question_id;
 }

@@ -1,6 +1,6 @@
 package com.example.app;
 
-import com.example.app.rabbit.RabbitConfiguration;
+import com.example.app.config.rabbit.RabbitConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

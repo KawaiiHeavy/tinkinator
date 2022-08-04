@@ -1,11 +1,10 @@
 package com.example.app.services.impl;
 
-import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.QuestionDTO;
 import com.example.app.exceptions.QuestionNotFoundException;
-import com.example.app.models.Answer;
-import com.example.app.models.Question;
-import com.example.app.models.Solution;
+import com.example.app.models.other.Answer;
+import com.example.app.models.question.Question;
+import com.example.app.models.other.Solution;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.QuestionRepository;
 import com.example.app.repositories.SolutionRepository;
@@ -28,8 +27,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
 
-    private AnswerRepository answerRepository;
-    private SolutionRepository solutionRepository;
+//    private AnswerRepository answerRepository;
+//    private SolutionRepository solutionRepository;
     private QuestionRepository questionRepository;
     private Mapper mapper;
 
@@ -37,16 +36,16 @@ public class QuestionServiceImpl implements QuestionService {
 
         Question question = mapper.mapToQuestion(questionDTO);
 
-        Set<Answer> answers = question.getAnswers();
-        if (answers != null){
-            answers.forEach(answer -> {
-                Solution solutionFromAns = answer.getSolution();
-
-                Optional<Solution> solution = solutionRepository
-                        .findSolutionBySolutionText(solutionFromAns.getSolutionText());
-                solution.ifPresent(answer::setSolution);
-            });
-        }
+//        Set<Answer> answers = question.getAnswers();
+//        if (answers != null){
+//            answers.forEach(answer -> {
+//                Solution solutionFromAns = answer.getSolution();
+//
+//                Optional<Solution> solution = solutionRepository
+//                        .findSolutionBySolutionText(solutionFromAns.getSolutionText());
+//                solution.ifPresent(answer::setSolution);
+//            });
+//        }
         Question questionFromDB = questionRepository.save(question);
         return mapper.mapToQuestionDTO(questionFromDB);
     }
@@ -72,10 +71,10 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Transactional
     public void deleteQuestion(UUID id) {
-        List<Answer> answers = answerRepository.findAnswersByQuestionId(id);
-        for (Answer answer : answers){
-            answer.setQuestion(null);
-        }
+//        List<Answer> answers = answerRepository.findAnswersByQuestionId(id);
+//        for (Answer answer : answers){
+//
+//        }
         questionRepository.deleteQuestionById(id);
     }
 }

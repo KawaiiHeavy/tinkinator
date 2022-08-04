@@ -1,4 +1,4 @@
-package com.example.app.rabbit;
+package com.example.app.config.rabbit;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.core.*;

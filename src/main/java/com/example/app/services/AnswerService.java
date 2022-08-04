@@ -16,7 +16,7 @@ public interface AnswerService {
     AnswerDTO updateAnswer(AnswerDTO answer);
     AnswerDTO findAnswerById(UUID id);
     void deleteAnswer(UUID id);
-    QuestionDTO findQuestionByAnswerId(UUID id);
+//    QuestionDTO findQuestionByAnswerId(UUID id);
     SolutionDTO findSolutionByAnswerId(UUID id);
     void attachQuestion(UUID questionId, UUID answerId);
     Integer countAllAnswers();

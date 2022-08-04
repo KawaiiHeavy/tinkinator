@@ -1,6 +1,6 @@
 package com.example.app.mvcTests;
 
-import com.example.app.models.Question;
+import com.example.app.models.question.Question;
 import com.example.app.repositories.QuestionRepository;
 import com.example.app.utils.listeners.QuestionResetDatabaseTestExecutionListener;
 import org.json.JSONObject;

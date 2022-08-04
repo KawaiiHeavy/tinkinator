@@ -1,6 +1,6 @@
 package com.example.app.utils.listeners;
 
-import com.example.app.models.Question;
+import com.example.app.models.question.Question;
 import com.example.app.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.TestContext;

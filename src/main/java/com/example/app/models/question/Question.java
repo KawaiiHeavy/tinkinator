@@ -1,5 +1,6 @@
-package com.example.app.models;
+package com.example.app.models.question;
 
+import com.example.app.models.other.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,13 +23,7 @@ public class Question {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
     @Column(name = "id", updatable = false, nullable = false)
-    @ColumnDefault("random_uuid()")
-    @Type(type = "uuid-char")
     private UUID id;
 
     @Column(name = "question_text", nullable = false)
@@ -36,7 +31,7 @@ public class Question {
 
     private boolean isRoot;
 
-    @OneToMany(cascade =  { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    private Set<Answer> answers;
+//    @OneToMany(cascade =  { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+//    private Set<Answer> answers;
 
 }

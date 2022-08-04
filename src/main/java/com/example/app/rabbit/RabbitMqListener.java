@@ -1,6 +1,6 @@
 package com.example.app.rabbit;
 
-import com.example.app.models.ClientRequest;
+import com.example.app.models.other.ClientRequest;
 import com.example.app.repositories.ClientRequestRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;

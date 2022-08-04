@@ -1,4 +1,4 @@
-package com.example.app.models;
+package com.example.app.models.other;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Answer {
+public class Solution {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -30,12 +30,6 @@ public class Answer {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "answer_text", nullable = false)
-    private String answerText;
-
-    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
-    private Question question;
-
-    @OneToOne(cascade = { CascadeType.PERSIST }, fetch = FetchType.LAZY)
-    private Solution solution;
+    @Column(name = "solution_text", nullable = false)
+    private String solutionText;
 }

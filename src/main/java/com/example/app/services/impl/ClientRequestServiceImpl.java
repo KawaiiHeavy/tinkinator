@@ -1,7 +1,7 @@
 package com.example.app.services.impl;
 
 import com.example.app.dto.ClientRequestDTO;
-import com.example.app.models.ClientRequest;
+import com.example.app.models.other.ClientRequest;
 import com.example.app.repositories.ClientRequestRepository;
 import com.example.app.services.ClientRequestService;
 import com.example.app.utils.Mapper;

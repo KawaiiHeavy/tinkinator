@@ -2,8 +2,8 @@ package com.example.app.services.impl;
 
 import com.example.app.dto.SolutionDTO;
 import com.example.app.exceptions.SolutionNotFoundException;
-import com.example.app.models.Answer;
-import com.example.app.models.Solution;
+import com.example.app.models.other.Answer;
+import com.example.app.models.other.Solution;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.SolutionRepository;
 import com.example.app.services.SolutionService;

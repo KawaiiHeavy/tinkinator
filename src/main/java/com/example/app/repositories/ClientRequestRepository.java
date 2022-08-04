@@ -1,6 +1,6 @@
 package com.example.app.repositories;
 
-import com.example.app.models.ClientRequest;
+import com.example.app.models.other.ClientRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

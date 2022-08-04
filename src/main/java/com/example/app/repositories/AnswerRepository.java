@@ -1,8 +1,8 @@
 package com.example.app.repositories;
 
-import com.example.app.models.Answer;
-import com.example.app.models.Question;
-import com.example.app.models.Solution;
+import com.example.app.models.other.Answer;
+import com.example.app.models.question.Question;
+import com.example.app.models.other.Solution;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,22 +19,22 @@ public interface AnswerRepository extends JpaRepository<Answer, UUID> {
     void deleteAnswerById(UUID id);
     Optional<Answer> findAnswerById(UUID id);
 
-    @Query("select question from Answer a where a.id=:id")
-    Optional<Question> findQuestionByAnswerId(UUID id);
+//    @Query("select question from Answer a where a.id=:id")
+//    Optional<Question> findQuestionByAnswerId(UUID id);
 
     @Query("select a from Answer a where a.solution.id=:id")
     List<Answer> findAnswersBySolutionId(UUID id);
 
-    @Query("select a from Answer a where a.question.id=:id")
-    List<Answer> findAnswersByQuestionId(UUID id);
+//    @Query("select a from Answer a where a.question.id=:id")
+//    List<Answer> findAnswersByQuestionId(UUID id);
 
     @Query("select solution from Answer a where a.id=:id")
     Optional<Solution> findSolutionByAnswerId(UUID id);
 
     @Transactional
     @Modifying
-    @Query("update Answer a set a.question=:question where a.id=:answerId")
-    Optional<?> addQuestionToAnswer(Question question, UUID answerId);
+    @Query("update Answer a set a.question_id=:questionId where a.id=:answerId")
+    Optional<?> addQuestionToAnswer(UUID questionId, UUID answerId);
 
     Optional<Answer> findAnswerByAnswerText(String answerText);
     Integer countAllByIdIsNotNull();

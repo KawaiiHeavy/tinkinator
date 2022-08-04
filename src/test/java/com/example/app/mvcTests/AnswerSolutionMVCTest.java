@@ -2,13 +2,12 @@ package com.example.app.mvcTests;
 
 import com.example.app.dto.AnswerDTO;
 import com.example.app.dto.SolutionDTO;
-import com.example.app.models.Answer;
+import com.example.app.models.other.Answer;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.SolutionRepository;
 import com.example.app.utils.JsonMapper;
 import com.example.app.utils.listeners.AnswerResetDatabaseTestExecutionListener;
 import com.example.app.utils.listeners.SolutionResetDatabaseTestExecutionListener;
-import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.app.models;
+package com.example.app.models.other;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
@@ -17,7 +18,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Solution {
+public class ClientRequest implements Serializable {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -30,6 +31,7 @@ public class Solution {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "solution_text", nullable = false)
-    private String solutionText;
+    @Column(name = "request_text", nullable = false)
+    private String requestText;
+
 }

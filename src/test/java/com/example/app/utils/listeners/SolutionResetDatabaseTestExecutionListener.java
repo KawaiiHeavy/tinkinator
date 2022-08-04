@@ -1,6 +1,6 @@
 package com.example.app.utils.listeners;
 
-import com.example.app.models.Solution;
+import com.example.app.models.other.Solution;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.SolutionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
