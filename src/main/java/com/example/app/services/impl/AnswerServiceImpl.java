@@ -10,6 +10,7 @@ import com.example.app.models.other.Answer;
 import com.example.app.models.question.Question;
 import com.example.app.models.other.Solution;
 import com.example.app.repositories.AnswerRepository;
+import com.example.app.repositories.QuestionAnswerRepository;
 import com.example.app.repositories.QuestionRepository;
 import com.example.app.services.AnswerService;
 import com.example.app.utils.Mapper;
@@ -21,12 +22,14 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Service
 @AllArgsConstructor
 public class AnswerServiceImpl implements AnswerService {
 
+    private QuestionAnswerRepository questionAnswerRepository;
     private QuestionRepository questionRepository;
     private AnswerRepository answerRepository;
     private Mapper mapper;
@@ -36,10 +39,10 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     public List<AnswerDTO> findAllAnswers() {
-        List<AnswerDTO> answers = new LinkedList<>();
-        answerRepository.findAll().forEach(answer ->
-                answers.add(mapper.mapToAnswerDTO(answer)));
-        return answers;
+        return answerRepository.findAll()
+                .stream()
+                .map(mapper::mapToAnswerDTO)
+                .collect(Collectors.toList());
     }
 
     public AnswerDTO updateAnswer(AnswerDTO answer) {
@@ -51,11 +54,18 @@ public class AnswerServiceImpl implements AnswerService {
                 .orElseThrow(() -> new AnswerNotFoundException("Answer by id " + id + " was not found")));
     }
 
-//    public QuestionDTO findQuestionByAnswerId(UUID id) {
-//        Optional<Question> question = answerRepository.findQuestionByAnswerId(id);
-//        return mapper.mapToQuestionDTO(question.orElseThrow(()
-//                -> new QuestionNotFoundException("Question by answerId " + id + " was not found")));
-//    }
+    public QuestionDTO findQuestionByAnswerId(UUID id) {
+        QuestionDTO questionDTO = null;
+        Set<Answer> answers = new HashSet<>();
+        Optional<UUID> question_id = answerRepository.findQuestionByAnswerId(id);
+        if (question_id.isPresent()){
+            Optional<Question> question = questionRepository.findById(question_id.get());
+            questionAnswerRepository.findAllAnswersById(question_id.get()).forEach(answerId -> answers.add(answerRepository.getById(answerId)));
+            questionDTO = mapper.mapToQuestionDTO(question.orElseThrow(()
+                    -> new QuestionNotFoundException("Question by answerId " + id + " was not found")), answers);
+        }
+        return questionDTO;
+    }
 
     public SolutionDTO findSolutionByAnswerId(UUID id) {
         Optional<Solution> solution = answerRepository.findSolutionByAnswerId(id);

@@ -27,7 +27,6 @@ export class QuestionSectionComponent implements OnInit {
   hideDropdown: boolean;
 
   constructor(private questionService: QuestionService,
-    private solutionService: SolutionService,
     private dataExchaningService: DataExchangingService,
     private paginatorUtils: PaginatorUtils,
     public dialog: MatDialog) { }

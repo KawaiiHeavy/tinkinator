@@ -1,16 +1,11 @@
 package com.example.app.models.question;
 
-import com.example.app.models.other.Answer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -19,16 +14,13 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @ToString
-public class Question {
+public class QuestionAnswer {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
-
-    @Column(name = "question_text", nullable = false)
-    private String questionText;
-
-    private boolean isRoot;
+    private UUID questionId;
+    private UUID answerId;
 
 }

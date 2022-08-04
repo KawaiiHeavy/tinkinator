@@ -35,6 +35,7 @@ public class SolutionController {
 
     @PostMapping("/add")
     public ResponseEntity<SolutionDTO> addSolution(@RequestBody SolutionDTO solution) {
+        System.out.println(solution);
         SolutionDTO newSolution = solutionService.addSolution(solution);
         return new ResponseEntity<>(newSolution, HttpStatus.CREATED);
     }

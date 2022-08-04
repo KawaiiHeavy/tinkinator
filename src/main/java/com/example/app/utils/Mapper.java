@@ -59,21 +59,20 @@ public class Mapper {
         return question;
     }
 
-    public QuestionDTO mapToQuestionDTO(Question question) {
+    public QuestionDTO mapToQuestionDTO(Question question, Set<Answer> answers) {
 
         QuestionDTO questionDTO = new QuestionDTO();
         questionDTO.setId(question.getId());
         questionDTO.setQuestionText(question.getQuestionText());
         questionDTO.setRoot(question.isRoot());
 
-//        Set<Answer> answersFromDB = question.getAnswers();
-//        if (answersFromDB != null) {
-//            Set<AnswerDTO> answers = answersFromDB.stream()
-//                    .collect(HashSet::new,
-//                            (set, ans) -> set.add(mapToAnswerDTO(ans)),
-//                            HashSet::addAll);
-//            questionDTO.setAnswers(answers);
-//        }
+        if (answers != null) {
+            Set<AnswerDTO> answersDTO = answers.stream()
+                    .collect(HashSet::new,
+                            (set, ans) -> set.add(mapToAnswerDTO(ans)),
+                            HashSet::addAll);
+            questionDTO.setAnswers(answersDTO);
+        }
 
         return questionDTO;
     }
@@ -90,14 +89,6 @@ public class Mapper {
         clientRequest.setId(clientRequestDTO.getId());
         clientRequest.setRequestText(clientRequestDTO.getRequestText());
         return clientRequest;
-    }
-
-    public List<QuestionDTO> mapToQuestionsDTO(List<Question> questions) {
-
-        return questions.stream()
-                .collect(ArrayList::new,
-                        (list, quest) -> list.add(mapToQuestionDTO(quest)),
-                        ArrayList::addAll);
     }
 
     public SolutionDTO mapToSolutionDTO(Solution solution) {

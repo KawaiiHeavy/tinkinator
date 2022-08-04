@@ -11,8 +11,12 @@ spring:
       username: sa
       password:
       driver-class-name: org.h2.Driver
+  main:
+    allow-bean-definition-overriding: true
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: create-drop
   h2:
     console:
       enabled: true
@@ -22,6 +26,5 @@ springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html
     operationSorter: method
-
   api-docs:
     path: /api-docs

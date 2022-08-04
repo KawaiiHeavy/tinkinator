@@ -53,11 +53,11 @@ public class AnswerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping("/findQuestionByAnswerId/{id}")
-//    public ResponseEntity<QuestionDTO> getQuestionByAnswerId(@PathVariable("id") UUID id){
-//        QuestionDTO question = answerService.findQuestionByAnswerId(id);
-//        return new ResponseEntity<>(question, HttpStatus.OK);
-//    }
+    @GetMapping("/findQuestionByAnswerId/{id}")
+    public ResponseEntity<QuestionDTO> getQuestionByAnswerId(@PathVariable("id") UUID id){
+        QuestionDTO question = answerService.findQuestionByAnswerId(id);
+        return new ResponseEntity<>(question, HttpStatus.OK);
+    }
 
     @GetMapping("/findSolutionByAnswerId/{id}")
     public ResponseEntity<SolutionDTO> getSolutionByAnswerId(@PathVariable("id") UUID id){

@@ -14,7 +14,7 @@ export class SolutionSectionComponent implements OnInit {
   @ViewChild('paginator')
   paginator: MatPaginator;
   
-  solution: Solution = new Solution();
+  solution: Solution;
   length: number = 0;
 
   isFailed: boolean = false;
@@ -27,6 +27,7 @@ export class SolutionSectionComponent implements OnInit {
               private paginatorUtils: PaginatorUtils) { }
 
   ngOnInit(): void {
+    this.solution = new Solution();
     this.hideDropdown = false;
     this.solutionService.getAllSolutionsPaging(0, 5)
       .subscribe(pageable => {
@@ -36,6 +37,7 @@ export class SolutionSectionComponent implements OnInit {
   }
 
   addSolution(){
+    console.log(this.solution);
     this.solutionService.addSolution(this.solution)
     .subscribe({ 
       next: (s) => 

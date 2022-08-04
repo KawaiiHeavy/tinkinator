@@ -19,8 +19,8 @@ public interface AnswerRepository extends JpaRepository<Answer, UUID> {
     void deleteAnswerById(UUID id);
     Optional<Answer> findAnswerById(UUID id);
 
-//    @Query("select question from Answer a where a.id=:id")
-//    Optional<Question> findQuestionByAnswerId(UUID id);
+    @Query("select question_id from Answer a where a.id=:id")
+    Optional<UUID> findQuestionByAnswerId(UUID id);
 
     @Query("select a from Answer a where a.solution.id=:id")
     List<Answer> findAnswersBySolutionId(UUID id);
