@@ -3,7 +3,11 @@ package com.example.app.config.datasource;
 import com.example.app.repositories.AnswerRepository;
 import com.example.app.repositories.ClientRequestRepository;
 import com.example.app.repositories.SolutionRepository;
+import com.zaxxer.hikari.HikariDataSource;
+import org.hibernate.cfg.Environment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -31,11 +35,20 @@ import java.util.Map;
 )
 public class OtherDBConfig {
 
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix="spring.other.datasource")
+    public DataSourceProperties otherDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
     @Primary
     @Bean(name="otherDataSource")
-    @ConfigurationProperties(prefix="spring.other.datasource")
     public DataSource dataSource() {
-        return DataSourceBuilder.create().build();
+        return otherDataSourceProperties()
+                .initializeDataSourceBuilder()
+                .type(HikariDataSource.class)
+                .build();
     }
 
     @Primary
@@ -43,7 +56,7 @@ public class OtherDBConfig {
     public LocalContainerEntityManagerFactoryBean otherEntityManagerFactory(EntityManagerFactoryBuilder builder,
                                                                            @Qualifier("otherDataSource") DataSource dataSource) {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
         properties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
         return builder.dataSource(dataSource)
                 .properties(properties)

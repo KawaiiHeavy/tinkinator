@@ -1,7 +1,9 @@
 package com.example.app.config.datasource;
 
 import com.example.app.repositories.QuestionRepository;
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -31,17 +33,27 @@ import java.util.Map;
 )
 public class QuestionDBConfig {
 
+    @Bean
+    @Primary
+    @ConfigurationProperties(prefix="spring.question.datasource")
+    public DataSourceProperties questionDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
     @Bean(name="questionDataSource")
     @ConfigurationProperties(prefix="spring.question.datasource")
     public DataSource dataSource() {
-        return DataSourceBuilder.create().build();
+        return questionDataSourceProperties()
+                .initializeDataSourceBuilder()
+                .type(HikariDataSource.class)
+                .build();
     }
 
     @Bean(name = "questionEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean questionEntityManagerFactory(EntityManagerFactoryBuilder builder,
                                                                            @Qualifier("questionDataSource") DataSource dataSource) {
         Map<String, Object> properties = new HashMap<>();
-        properties.put("hibernate.hbm2ddl.auto", "update");
+        properties.put("hibernate.hbm2ddl.auto", "create-drop");
         properties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         return builder.dataSource(dataSource)
                 .properties(properties)
