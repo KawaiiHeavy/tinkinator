@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:14'
+    container_name: 'tinkinator-postgres'
+    environment:
+      - 'POSTGRES_USER=tinkinator-superuser'
+      - 'POSTGRES_PASSWORD=tinkinator'
+      - 'POSTGRES_DB=tinkinator'
+
+  app:
+    build: ./
+    container_name: 'tinkinator'
+    ports:
+      - 8080:8080
+    environment:
+      - 'SPRING_RABBITMQ_HOST=rabbitmq'
+    depends_on:
+      - rabbitmq
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: "tinkinator-rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"

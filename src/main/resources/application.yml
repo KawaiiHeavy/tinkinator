@@ -1,7 +1,7 @@
 spring:
   question:
     datasource:
-      jdbc-url: jdbc:postgresql://localhost:5432/tinkinator
+      jdbc-url: jdbc:postgresql://postgres:5432/tinkinator
       username: tinkinator-superuser
       password: tinkinator
       driver-class-name: org.postgresql.Driver
